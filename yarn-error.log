@@ -1,0 +1,46 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\dunka\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add styled-components
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\TwinCAT\Common64;C:\TwinCAT\Common32;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_241\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\MATLAB\R2020b\bin;C:\Program Files\Git\cmd;C:\Users\dunka\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\dunka\AppData\Local\Microsoft\WindowsApps;C:\Users\dunka\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.2.3\bin;;C:\Users\dunka\AppData\Roaming\npm;C:\Users\dunka\AppData\Roaming\nvm;C:\Program Files\nodejs
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  18.12.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\dunka\OneDrive\Документы\web\react\ReactNative\MyCards\node_modules\@expo\package-manager\node_modules\.bin'
+
+npm manifest: 
+  {
+    "name": "mycards",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web"
+    },
+    "dependencies": {
+      "expo": "~47.0.8",
+      "expo-status-bar": "~1.4.2",
+      "react": "18.1.0",
+      "react-native": "0.70.5"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
