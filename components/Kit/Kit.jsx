@@ -5,6 +5,7 @@ const KitView = styled.View`
     padding: 15px;
     margin-bottom: 30px;
     background: #f8f8f8;
+    flex-direction: row;
 `;
 
 const KitImage = styled.Image`
@@ -15,7 +16,7 @@ const KitImage = styled.Image`
 `;
 
 const KitTitle = styled.Text`
-    font-size: 16px;
+    font-size: 20px;
 `;
 
 export const Kit = ({title, imageUrl}) => {
