@@ -26,10 +26,14 @@ export default function HomePage() {
   return (
     <View>
         <TopBar />
-        <ImageBackground source={{uri: 'https://flomaster.club/uploads/posts/2022-07/thumbs/1657725150_54-flomaster-club-p-risunok-kletka-tetradnaya-krasivo-57.jpg'}} 
+        <ImageBackground 
+                            // source={{uri: 'https://damion.club/uploads/posts/2022-09/1663920556_2-damion-club-p-kletchatii-fon-tetrad-instagram-2.png'}} 
                         //  source={require('../../../assets/images/bg2.png')}
-                         
-                         resizeMode="repeat" style={{minHeight:'100%'}}>
+                         resizeMode="repeat" style={{
+                                                        minHeight:'100%',
+                                                        padding:15,
+                                                        backgroundColor: "#fefbec"
+                                                    }}>
         
         {
             items.map((obj) => (
