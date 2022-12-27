@@ -4,7 +4,7 @@ import { EditElement } from '../../../comon/EditElement/EditElement';
 
 const KitView = styled.View`
     padding: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     flex-direction: row;
 
     background: #FFFFFF;

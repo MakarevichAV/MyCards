@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 import {Text} from 'react-native';
+import { AddButton } from '../AddButton/AddButton.jsx';
+import { BackButton } from '../BackButton/BackButton.jsx';
 
 const TopStatusBar = styled.View`
     height: 100px;
@@ -9,10 +11,14 @@ const TopStatusBar = styled.View`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
 `;
 
 const TitleText = styled.Text`
-    padding-bottom: 15px;
+    margin-bottom: 15px;
     font-family: Arial;
     font-weight: bold;
     font-size: 18px;
@@ -22,7 +28,9 @@ const TitleText = styled.Text`
 export const TopBar = ({title}) => {
     return (
         <TopStatusBar>
+            <BackButton/>
             <TitleText>Category</TitleText>
+            <AddButton/>
         </TopStatusBar>
     );
 }
