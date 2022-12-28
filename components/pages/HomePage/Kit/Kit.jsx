@@ -39,7 +39,7 @@ const KitNum = styled.Text`
     color: #c2c2c2;
 `;
 
-export const Kit = ({title, txt, imageUrl}) => {
+export const Kit = ({title, imageUrl}) => {
     return (
         <KitView>
             <KitImage source={imageUrl=='' ? 

@@ -1,14 +1,36 @@
-import axios from 'axios';
 import React from 'react';
-import { StatusBar, Text, View, Image } from 'react-native';
-import HomePage from './components/pages/HomePage/HomePage';
+import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar, View} from 'react-native';
+import { BottomBar } from './components/comon/BottomBar/BottomBar.jsx';
+import { TopBar } from './components/comon/TopBar/TopBar.jsx';
+import { HomePage } from './components/pages/HomePage/HomePage.jsx';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: '#1C1B15',
+  },
+  scrollView: {
+    backgroundColor: '#fefbec',
+    marginHorizontal: 0,
+  },
+  text: {
+    fontSize: 42,
+  },
+});
 
-export default function App() {
+const App = () => {
   return (
-    <View>
-      <HomePage />
+    <SafeAreaView style={styles.container}>
+      {/* <TopBar /> */}
+      <ScrollView style={styles.scrollView}>
+        <TopBar />
+        <HomePage />
+      </ScrollView>
+      <BottomBar />
       <StatusBar barStyle="light-content" theme='auto' />
-    </View>
+    </SafeAreaView>
   );
 }
+
+export default App;

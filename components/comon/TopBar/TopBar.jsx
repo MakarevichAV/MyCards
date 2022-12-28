@@ -1,16 +1,12 @@
 import styled from 'styled-components/native';
-import {Text} from 'react-native';
-import { AddButton } from '../AddButton/AddButton.jsx';
-import { BackButton } from '../BackButton/BackButton.jsx';
+import { AddButton } from './AddButton/AddButton.jsx';
+import { BackButton } from './BackButton/BackButton.jsx';
 
 const TopStatusBar = styled.View`
-    height: 100px;
+    height: 50px;
     width: 100%;
-    background-color: #3A4F58;
-    position: fixed;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    background-color: #1C1B15;
+    /* position: fixed; */
     display: flex;
     flex-direction: row;
     align-items: flex-end;
