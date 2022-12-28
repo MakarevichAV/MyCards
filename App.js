@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1C1B15',
   },
   scrollView: {
-    backgroundColor: '#fefbec',
+    backgroundColor: '#1C1B15',
     marginHorizontal: 0,
   },
   text: {
