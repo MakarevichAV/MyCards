@@ -1,8 +1,18 @@
 import axios from "axios";
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
-import { Text, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  StatusBar,
+  Text,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { Kit } from "./Kit/Kit";
+import { TopBar } from "../../comon/TopBar/TopBar";
+import { BottomBar } from "../../comon/BottomBar/BottomBar";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -10,7 +20,22 @@ const Wrapper = styled.View`
   min-height: 100%;
 `;
 
-export const HomePage = () => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "#1C1B15",
+  },
+  scrollView: {
+    backgroundColor: "#1C1B15",
+    marginHorizontal: 0,
+  },
+  text: {
+    fontSize: 42,
+  },
+});
+
+export const HomePage = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
   const fetchKits = () => {
@@ -45,10 +70,22 @@ export const HomePage = () => {
   }
 
   return (
-    <Wrapper>
-      {items.map((obj) => (
-        <Kit key={obj.id} title={obj.title} imageUrl={obj.imageUri} />
-      ))}
-    </Wrapper>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        {/* <TopBar /> */}
+        <Wrapper>
+          {items.map((obj) => (
+            <TouchableOpacity
+              key={obj.id}
+              onPress={() => navigation.navigate("Sets")}
+            >
+              <Kit title={obj.title} imageUrl={obj.imageUri} />
+            </TouchableOpacity>
+          ))}
+        </Wrapper>
+      </ScrollView>
+      <BottomBar />
+      <StatusBar barStyle="light-content" theme="auto" />
+    </SafeAreaView>
   );
 };

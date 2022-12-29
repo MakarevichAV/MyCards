@@ -3,6 +3,7 @@ import { StyleSheet, RefreshControl, SafeAreaView, ScrollView, StatusBar, View} 
 import { BottomBar } from './components/comon/BottomBar/BottomBar.jsx';
 import { TopBar } from './components/comon/TopBar/TopBar.jsx';
 import { HomePage } from './components/pages/HomePage/HomePage.jsx';
+import { Navigation } from './components/pages/Navigator.jsx';
 import { SetsPage } from './components/pages/SetsPage/SetsPage.jsx';
 
 const styles = StyleSheet.create({
@@ -22,15 +23,15 @@ const styles = StyleSheet.create({
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <TopBar />
-        {/* <HomePage /> */}
-        <SetsPage />
-      </ScrollView>
-      <BottomBar />
-      <StatusBar barStyle="light-content" theme='auto' />
-    </SafeAreaView>
+    <Navigation />
+    // <SafeAreaView style={styles.container}>
+    //   <ScrollView style={styles.scrollView}>
+    //     <TopBar />
+    //     <Navigation />
+    //   </ScrollView>
+    //   <BottomBar />
+    //   <StatusBar barStyle="light-content" theme='auto' />
+    // </SafeAreaView>
   );
 }
 

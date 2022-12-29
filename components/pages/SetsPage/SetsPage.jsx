@@ -1,8 +1,16 @@
 import axios from "axios";
 import React from "react";
 import styled from "styled-components";
-import { Text, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+    StyleSheet,
+    StatusBar,
+    Text,
+    ActivityIndicator,
+    SafeAreaView,
+    ScrollView,
+  } from "react-native";
 import { Set } from "./Set/Set";
+import { BottomBar } from "../../comon/BottomBar/BottomBar";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -10,7 +18,7 @@ const Wrapper = styled.View`
   min-height: 100%;
 `;
 
-export const SetsPage = () => {
+export const SetsPage = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
   const fetchSets = () => {
@@ -44,11 +52,37 @@ export const SetsPage = () => {
     );
   }
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: StatusBar.currentHeight,
+      backgroundColor: "#1C1B15",
+    },
+    scrollView: {
+      backgroundColor: "#1C1B15",
+      marginHorizontal: 0,
+    },
+    text: {
+      fontSize: 42,
+    },
+  });
+
   return (
-    <Wrapper>
-      {items.map((obj) => (
-        <Set key={obj.id} title={obj.title} num={obj.num} passed={obj.passed}/>
-      ))}
-    </Wrapper>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Wrapper>
+          {items.map((obj) => (
+            <Set
+              key={obj.id}
+              title={obj.title}
+              num={obj.num}
+              passed={obj.passed}
+            />
+          ))}
+        </Wrapper>
+      </ScrollView>
+      <BottomBar/>
+      <StatusBar barStyle="light-content" theme="auto" />
+    </SafeAreaView>
   );
 };

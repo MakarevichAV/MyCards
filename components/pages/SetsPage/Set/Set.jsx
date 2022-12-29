@@ -1,13 +1,16 @@
 import styled from "styled-components/native";
 import { Text } from "react-native";
+import { EditElement } from "../../../comon/EditElement/EditElement";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons'; 
+
 
 const SetBlock = styled.View`
-  /* padding: 15px; */
   margin-bottom: 15px;
   flex-direction: row;
   justify-content: space-between;
   background: #ffffff;
-  border: 1px solid #f8f8f8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   display: flex;
@@ -15,49 +18,85 @@ const SetBlock = styled.View`
 
 const Info = styled.View`
   padding: 15px;
+  margin-right: 65px;
+  flex-grow: 1;
 `;
 
 const Menu = styled.View`
-  width: 50px;
-  background-color: #bdbcbc;
+  background-color: rgb(238, 238, 238);
   border-radius: 6px;
+  border: 1px;
+  border-color: rgb(221, 221, 221);
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
 `;
 
 const Num = styled.Text`
-    color: '#C2C2C2';
-    font-size: 10px;
-    margin-bottom: 10px;
+  color: "rgb(194, 194, 194)";
+  font-size: 10px;
+  margin-bottom: 10px;
 `;
 
 const Title = styled.Text`
-    font-size: 16px;
-    color: "#3A4F58";
-    margin-bottom: 10px;
+  font-size: 18px;
+  color: "rgb(58, 79, 88)";
+  font-weight: bold;
+  margin-bottom: 10px;
 `;
 
 const BtnBlock = styled.View`
-    display: flex;
-    flex-direction: row;
-    
+  display: flex;
+  flex-direction: row;
 `;
 
 const BtnView = styled.View`
-    background-color: "#40B72D";
-    width: 90px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: "rgb(64, 183, 45)";
+  width: 90px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  margin-right: 10px;
 `;
 
 const BtnTest = styled.View`
-    background-color: "#B75F2D";
-    width: 90px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: "rgb(183, 95, 45)";
+  width: 90px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
 `;
+
+const BtnTxt = styled.Text`
+  color: "rgb(237, 237, 237)";
+  font-weight: bold;
+`;
+
+const UnvisibleBlock = styled.View`
+  width: 60px;
+  padding: 15px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* display: none; */
+`;
+
+const VisibleBlock = styled.View`
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 5px;
+`;
+
+const Counter = styled.View``;
 
 export const Set = ({ title, num, passed }) => {
   return (
@@ -66,15 +105,42 @@ export const Set = ({ title, num, passed }) => {
         <Num>{num} cards</Num>
         <Title>{title}</Title>
         <BtnBlock>
-            <BtnView>
-                <Text>View</Text>
-            </BtnView>
-            <BtnTest>
-                <Text>Test</Text>
-            </BtnTest>
+          <BtnView>
+            <BtnTxt>VIEW</BtnTxt>
+          </BtnView>
+          <BtnTest>
+            <BtnTxt>TEST</BtnTxt>
+          </BtnTest>
         </BtnBlock>
+        <EditElement />
       </Info>
-      <Menu></Menu>
+      <Menu>
+        <UnvisibleBlock>
+          <FontAwesome name="send" size={24} color="#3A4F58" />
+          <MaterialIcons name="delete" size={24} color="#8C9497" />
+        </UnvisibleBlock>
+        <VisibleBlock>
+          <MaterialCommunityIcons
+            name="dots-horizontal"
+            size={32}
+            color="#3A4F58"
+          />
+          <Counter>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#c2c2c2",
+                fontSize: "10",
+                fontWeight: "bold",
+              }}
+            >
+              Passed {"\n"}
+              <Text style={{ color: "#B75F2D" }}>{passed}</Text> /
+              <Text style={{ color: "#3A4F58" }}>{num}</Text>
+            </Text>
+          </Counter>
+        </VisibleBlock>
+      </Menu>
     </SetBlock>
   );
 };
