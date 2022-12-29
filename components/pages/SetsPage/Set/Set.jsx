@@ -3,8 +3,8 @@ import { Text } from "react-native";
 import { EditElement } from "../../../comon/EditElement/EditElement";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { MaterialIcons } from '@expo/vector-icons'; 
-
+import { MaterialIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 
 const SetBlock = styled.View`
   margin-bottom: 15px;
@@ -85,7 +85,6 @@ const UnvisibleBlock = styled.View`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* display: none; */
 `;
 
 const VisibleBlock = styled.View`
@@ -98,7 +97,19 @@ const VisibleBlock = styled.View`
 
 const Counter = styled.View``;
 
+const Knob = styled.View`
+    width: 3px;
+    height: 40px;
+    background-color: "rgb(141, 141, 141)";
+    position: absolute;
+    top: 30%;
+    left: -4px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+`;
+
 export const Set = ({ title, num, passed }) => {
+  const [toggle, setToggle] = useState(false);
   return (
     <SetBlock>
       <Info>
@@ -115,17 +126,20 @@ export const Set = ({ title, num, passed }) => {
         <EditElement />
       </Info>
       <Menu>
-        <UnvisibleBlock>
-          <FontAwesome name="send" size={24} color="#3A4F58" />
-          <MaterialIcons name="delete" size={24} color="#8C9497" />
-        </UnvisibleBlock>
+        <Knob />
+        {toggle && (
+          <UnvisibleBlock>
+            <FontAwesome name="send" size={24} color="#3A4F58" />
+            <MaterialIcons name="delete" size={24} color="#8C9497" />
+          </UnvisibleBlock>
+        )}
         <VisibleBlock>
           <MaterialCommunityIcons
+            onPress={() => setToggle(!toggle)}
             name="dots-horizontal"
             size={32}
             color="#3A4F58"
           />
-          <Counter>
             <Text
               style={{
                 textAlign: "center",
@@ -138,7 +152,6 @@ export const Set = ({ title, num, passed }) => {
               <Text style={{ color: "#B75F2D" }}>{passed}</Text> /
               <Text style={{ color: "#3A4F58" }}>{num}</Text>
             </Text>
-          </Counter>
         </VisibleBlock>
       </Menu>
     </SetBlock>
