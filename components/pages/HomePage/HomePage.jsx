@@ -11,7 +11,6 @@ import {
   ScrollView,
 } from "react-native";
 import { Kit } from "./Kit/Kit";
-import { TopBar } from "../../comon/TopBar/TopBar";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
 
 const Wrapper = styled.View`
@@ -72,7 +71,6 @@ export const HomePage = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {/* <TopBar /> */}
         <Wrapper>
           {items.map((obj) => (
             <TouchableOpacity
