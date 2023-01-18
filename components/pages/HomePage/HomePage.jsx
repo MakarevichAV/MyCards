@@ -11,7 +11,6 @@ import {
   ScrollView,
 } from "react-native";
 import { Kit } from "./Kit/Kit";
-import { TopBar } from "../../comon/TopBar/TopBar";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
 
 const Wrapper = styled.View`
@@ -79,7 +78,7 @@ export const HomePage = ({ navigation }) => {
               key={obj.id}
               onPress={() => navigation.navigate("Sets")}
             >
-              <Kit title={obj.title} imageUrl={obj.imageUri} />
+              <Kit catId={obj.id} title={obj.title} imageUrl={obj.imageUri} />
             </TouchableOpacity>
           ))}
         </Wrapper>
