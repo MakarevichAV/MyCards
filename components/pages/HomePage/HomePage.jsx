@@ -13,6 +13,7 @@ import {
 import { Kit } from "./Kit/Kit";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
 import { PlusButton } from "../../comon/PlusButton/PlusButton";
+import { KitCreater } from "./Kit/KitCreater";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#1C1B15"
+    backgroundColor: "#1C1B15",
   },
   scrollView: {
     backgroundColor: "#1C1B15",
@@ -32,6 +33,18 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    flexGrow: 1,
+    width: 80,
+    height: 80,
+    position: "absolute",
+    bottom: 100,
+    right: 30,
+    zIndex: 200,
   },
 });
 
@@ -55,6 +68,14 @@ export const HomePage = ({ navigation }) => {
 
   React.useEffect(fetchKits, []);
 
+  const [addingCategory, setEddingCategory] = React.useState(false);
+  const addCategory = () => {
+    setEddingCategory(true);
+  }
+  const escFromAdding = () => {
+    setEddingCategory(false);
+  }
+
   if (isLoading) {
     return (
       <Wrapper
@@ -71,11 +92,15 @@ export const HomePage = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <PlusButton />
+      <TouchableOpacity style={styles.button} onPress={addCategory}>
+        <PlusButton />
+      </TouchableOpacity>
       <ScrollView style={styles.scrollView}>
         {/* <TopBar /> */}
         <Wrapper>
-          
+          {addingCategory && (
+            <KitCreater escFromAdding={escFromAdding}/>
+          )}
           {items
             .map((obj) => (
               <TouchableOpacity
