@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
+  Alert
 } from "react-native";
 import { Kit } from "./Kit/Kit";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
@@ -76,6 +77,32 @@ export const HomePage = ({ navigation }) => {
     setEddingCategory(false);
   }
 
+  const deleteCategory = (id) => {
+    const deleteRequest = () => {
+      axios
+      .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles/${id}`)
+      .then(({ data }) => {
+        alert(`Category ${data.title} has been successfully deleted`);
+      })
+      .catch((err) => {
+        alert("Error of deleting");
+      })
+      .finally(() => {
+        let newItems = items.forEach(function(el, i) {
+          if (el.id == id) items.splice(i, 1)
+        });
+        fetchKits();
+      });
+    }
+    Alert.alert('You are trying to delete a category', 'Are you sure', [
+      {
+        text: 'Cancel',
+        style: 'cancel'
+      },
+      {text: 'OK', onPress: () => deleteRequest()},
+    ]);
+  }
+
   if (isLoading) {
     return (
       <Wrapper
@@ -107,7 +134,7 @@ export const HomePage = ({ navigation }) => {
                 key={obj.id}
                 onPress={() => navigation.navigate("Sets")}
               >
-                <Kit catId={obj.id} title={obj.title} imageUrl={obj.imageUri} />
+                <Kit catId={obj.id} title={obj.title} imageUrl={obj.imageUri} deleteCategory={deleteCategory} />
               </TouchableOpacity>
             ))
             .reverse()}

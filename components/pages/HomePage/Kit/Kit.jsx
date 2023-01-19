@@ -16,7 +16,7 @@ import {
 } from "./KitStyles";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 
-export const Kit = ({ catId, title, imageUrl }) => {
+export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
   const [editingState, setEditingState] = React.useState(false);
   const [titleState, setTitleState] = React.useState(title);
   const editCategorie = () => {
@@ -38,6 +38,21 @@ export const Kit = ({ catId, title, imageUrl }) => {
         setEditingState(false);
       });
   };
+
+  // const deleteCatecgory = () => {
+  //   axios
+  //     .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles/${catId}`)
+  //     .then(({ data }) => {
+  //       alert(`Category ${data.title} has been successfully deleted`);
+  //       updateItems(catId);
+  //     })
+  //     .catch((err) => {
+  //       alert("Error of deleting");
+  //     })
+  //     .finally(() => {
+  //       setEditingState(false)
+  //     });
+  // }
 
   return (
     <KitBlock>
@@ -64,7 +79,7 @@ export const Kit = ({ catId, title, imageUrl }) => {
                   <TouchableOpacity onPress={handleSubmit}>
                     <SaveElement />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={handleSubmit}>
+                  <TouchableOpacity onPress={() => deleteCategory(catId)}>
                     <DeleteElement />
                   </TouchableOpacity>
                 </Buttons>
