@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Kit } from "./Kit/Kit";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
+import { PlusButton } from "../../comon/PlusButton/PlusButton";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#1C1B15",
+    backgroundColor: "#1C1B15"
   },
   scrollView: {
     backgroundColor: "#1C1B15",
@@ -70,17 +71,21 @@ export const HomePage = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <PlusButton />
       <ScrollView style={styles.scrollView}>
         {/* <TopBar /> */}
         <Wrapper>
-          {items.map((obj) => (
-            <TouchableOpacity
-              key={obj.id}
-              onPress={() => navigation.navigate("Sets")}
-            >
-              <Kit catId={obj.id} title={obj.title} imageUrl={obj.imageUri} />
-            </TouchableOpacity>
-          ))}
+          
+          {items
+            .map((obj) => (
+              <TouchableOpacity
+                key={obj.id}
+                onPress={() => navigation.navigate("Sets")}
+              >
+                <Kit catId={obj.id} title={obj.title} imageUrl={obj.imageUri} />
+              </TouchableOpacity>
+            ))
+            .reverse()}
         </Wrapper>
       </ScrollView>
       <BottomBar />

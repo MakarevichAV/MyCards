@@ -11,6 +11,7 @@ import {
   } from "react-native";
 import { Set } from "./Set/Set";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
+import { PlusButton } from "../../comon/PlusButton/PlusButton";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -46,7 +47,7 @@ export const SetsPage = ({ navigation }) => {
           justifyContent: "center",
         }}
       >
-        <ActivityIndicator size="large" color="#3fb72d" />
+        <ActivityIndicator size="large" color="rgb(63, 183, 45)" />
         <Text style={{ marginTop: 15, textAlign: "center" }}>Loading...</Text>
       </Wrapper>
     );
@@ -69,6 +70,7 @@ export const SetsPage = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <PlusButton />
       <ScrollView style={styles.scrollView}>
         <Wrapper>
           {items.map((obj) => (
