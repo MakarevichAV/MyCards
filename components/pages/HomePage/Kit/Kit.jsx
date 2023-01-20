@@ -65,7 +65,7 @@ export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
       />
       {editingState && (
         <Formik
-          initialValues={{ title: title }}
+          initialValues={{ title: titleState }}
           onSubmit={(values) => saveCategorie(values)}
         >
           {({ handleChange, handleSubmit, values }) => (

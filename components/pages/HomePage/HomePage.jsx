@@ -76,6 +76,9 @@ export const HomePage = ({ navigation }) => {
   const escFromAdding = () => {
     setEddingCategory(false);
   }
+  const addNewCat = (data) => {
+    setItems([...items, data]);
+  }
 
   const deleteCategory = (id) => {
     const deleteRequest = () => {
@@ -126,7 +129,7 @@ export const HomePage = ({ navigation }) => {
         {/* <TopBar /> */}
         <Wrapper>
           {addingCategory && (
-            <KitCreater escFromAdding={escFromAdding}/>
+            <KitCreater escFromAdding={escFromAdding} addNewCat={addNewCat}/>
           )}
           {items
             .map((obj) => (
