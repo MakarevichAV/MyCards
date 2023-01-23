@@ -11,7 +11,7 @@ const Btn = styled.View`
   border: 2px;
   border-color: rgb(37, 151, 20);
   border-radius: 50%;
-  z-index: 50;
+  z-index: 1;
   background-color: rgb(63, 183, 45);
   opacity: 0.8;
 `;

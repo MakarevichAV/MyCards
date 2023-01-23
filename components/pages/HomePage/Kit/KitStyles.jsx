@@ -32,7 +32,7 @@ export const KitNum = styled.Text`
   color: rgb(194, 194, 194);
 `;
 
-export const Buttons = styled.Text`
+export const Buttons = styled.View`
   display: flex;
   flex-direction: row;
   /* width: 100%; */

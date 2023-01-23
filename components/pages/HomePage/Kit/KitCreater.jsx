@@ -6,8 +6,14 @@ import { Formik } from "formik";
 import { KitBlock, KitImage, KitInfo, TitleInput, Buttons } from "./KitStyles";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
+import { createClient } from 'pexels';
+
+// const client = createClient('TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF');
+// const query = 'Nature';
 
 export const KitCreater = ({ escFromAdding, addNewCat }) => {
+  const [searchWindowState, setSearchWindowState] = React.useState(false);
+  // client.photos.search({ query, per_page: 1 }).then(photos => {...});
   const saveCategorie = (values) => {
     axios
       .post(
@@ -27,6 +33,9 @@ export const KitCreater = ({ escFromAdding, addNewCat }) => {
         escFromAdding();
       });
   };
+  const showSearchWindow = () => {
+
+  }
   return (
     <KitBlock>
       <Formik
@@ -35,9 +44,11 @@ export const KitCreater = ({ escFromAdding, addNewCat }) => {
       >
         {({ handleChange, handleSubmit, values }) => (
           <>
-            <KitImage
-              source={require("../../../../assets/images/folder.png")}
-            />
+            <TouchableOpacity onPress={() => showSearchWindow()}>
+              <KitImage
+                source={require("../../../../assets/images/folder.png")}
+              />
+            </TouchableOpacity>
 
             <KitInfo>
               <TitleInput

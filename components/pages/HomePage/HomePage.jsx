@@ -15,6 +15,7 @@ import { Kit } from "./Kit/Kit";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
 import { PlusButton } from "../../comon/PlusButton/PlusButton";
 import { KitCreater } from "./Kit/KitCreater";
+import { SearchWindow } from "../HomePage/SearchWindow/SearchWindow";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -44,8 +45,7 @@ const styles = StyleSheet.create({
     height: 80,
     position: "absolute",
     bottom: 100,
-    right: 30,
-    zIndex: 200,
+    right: 30
   },
 });
 
@@ -122,9 +122,6 @@ export const HomePage = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={addCategory}>
-        <PlusButton />
-      </TouchableOpacity>
       <ScrollView style={styles.scrollView}>
         {/* <TopBar /> */}
         <Wrapper>
@@ -143,6 +140,10 @@ export const HomePage = ({ navigation }) => {
             .reverse()}
         </Wrapper>
       </ScrollView>
+      <TouchableOpacity style={styles.button} onPress={addCategory}>
+        <PlusButton />
+      </TouchableOpacity>
+      <SearchWindow />
       <BottomBar />
       <StatusBar barStyle="light-content" theme="auto" />
     </SafeAreaView>
