@@ -19,11 +19,12 @@ export const KitCreater = ({
 }) => {
   const [searchWindowState, setSearchWindowState] = React.useState(false);
   // client.photos.search({ query, per_page: 1 }).then(photos => {...});
+  const defUrl = urlPhoto;
   const saveCategorie = (values) => {
     axios
       .post(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles`, {
         title: values.title,
-        imageUri: "../../../../assets/images/folder.png",
+        imageUri: urlPhoto,
       })
       .then(({ data }) => {
         addNewCat(data);
@@ -33,6 +34,7 @@ export const KitCreater = ({
       })
       .finally(() => {
         escFromAdding();
+
       });
   };
 

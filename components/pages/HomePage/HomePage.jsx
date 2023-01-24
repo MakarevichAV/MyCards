@@ -24,6 +24,7 @@ const client = createClient(
 
 const Wrapper = styled.View`
   padding: 15px;
+  padding-bottom: 80px;
   background-color: #f8f5e9;
   min-height: 100%;
 `;
@@ -76,9 +77,13 @@ export const HomePage = ({ navigation }) => {
   React.useEffect(fetchKits, []);
 
   const [addingCategory, setEddingCategory] = React.useState(false);
-  const [urlPhoto, setUrlPhoto] = React.useState("https://www.pexels.com/photo/selective-focus-photo-of-magnifying-glass-1194775/");
+  const [urlPhoto, setUrlPhoto] = React.useState("");
+  // https://www.pexels.com/photo/selective-focus-photo-of-magnifying-glass-1194775/
   const addCategory = () => {
     setEddingCategory(true);
+    client.photos.show({ id: 1194775 }).then(photo => {
+      setUrlPhoto(photo.src.small);
+    });
   };
   const escFromAdding = () => {
     setEddingCategory(false);
