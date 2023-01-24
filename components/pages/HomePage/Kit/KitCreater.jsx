@@ -1,15 +1,10 @@
 import axios from "axios";
 import React from "react";
-import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { KitBlock, KitImage, KitInfo, TitleInput, Buttons } from "./KitStyles";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
-import { createClient } from "pexels";
-
-// const client = createClient('TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF');
-// const query = 'Nature';
 
 export const KitCreater = ({
   escFromAdding,
@@ -18,7 +13,6 @@ export const KitCreater = ({
   urlPhoto,
 }) => {
   const [searchWindowState, setSearchWindowState] = React.useState(false);
-  // client.photos.search({ query, per_page: 1 }).then(photos => {...});
   const defUrl = urlPhoto;
   const saveCategorie = (values) => {
     axios
@@ -30,7 +24,7 @@ export const KitCreater = ({
         addNewCat(data);
       })
       .catch((err) => {
-        alert("Error of cards getting");
+        alert("Error of saving");
       })
       .finally(() => {
         escFromAdding();

@@ -17,6 +17,7 @@ import { PlusButton } from "../../comon/PlusButton/PlusButton";
 import { KitCreater } from "./Kit/KitCreater";
 import { SearchWindow } from "../HomePage/SearchWindow/SearchWindow";
 import { createClient } from "pexels";
+import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
 
 const client = createClient(
   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
@@ -78,12 +79,14 @@ export const HomePage = ({ navigation }) => {
 
   const [addingCategory, setEddingCategory] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
+  let pictureUrl;
+  client.photos.show({ id: 1194775 }).then(photo => {
+    pictureUrl = photo.src.small;
+  });
   // https://www.pexels.com/photo/selective-focus-photo-of-magnifying-glass-1194775/
   const addCategory = () => {
     setEddingCategory(true);
-    client.photos.show({ id: 1194775 }).then(photo => {
-      setUrlPhoto(photo.src.small);
-    });
+    setUrlPhoto(pictureUrl);
   };
   const escFromAdding = () => {
     setEddingCategory(false);
@@ -136,15 +139,7 @@ export const HomePage = ({ navigation }) => {
 
   if (isLoading) {
     return (
-      <Wrapper
-        style={{
-          flex: 1,
-          justifyContent: "center",
-        }}
-      >
-        <ActivityIndicator size="large" color="#3fb72d" />
-        <Text style={{ marginTop: 15, textAlign: "center" }}>Loading...</Text>
-      </Wrapper>
+      <LoadingElement />
     );
   }
 
