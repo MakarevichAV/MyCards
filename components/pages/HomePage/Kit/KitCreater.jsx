@@ -6,23 +6,25 @@ import { Formik } from "formik";
 import { KitBlock, KitImage, KitInfo, TitleInput, Buttons } from "./KitStyles";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
-import { createClient } from 'pexels';
+import { createClient } from "pexels";
 
 // const client = createClient('TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF');
 // const query = 'Nature';
 
-export const KitCreater = ({ escFromAdding, addNewCat }) => {
+export const KitCreater = ({
+  escFromAdding,
+  addNewCat,
+  showSearchWindow,
+  urlPhoto,
+}) => {
   const [searchWindowState, setSearchWindowState] = React.useState(false);
   // client.photos.search({ query, per_page: 1 }).then(photos => {...});
   const saveCategorie = (values) => {
     axios
-      .post(
-        `https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles`,
-        {
-          title: values.title,
-          imageUri: "../../../../assets/images/folder.png"
-        }
-      )
+      .post(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles`, {
+        title: values.title,
+        imageUri: "../../../../assets/images/folder.png",
+      })
       .then(({ data }) => {
         addNewCat(data);
       })
@@ -33,9 +35,7 @@ export const KitCreater = ({ escFromAdding, addNewCat }) => {
         escFromAdding();
       });
   };
-  const showSearchWindow = () => {
 
-  }
   return (
     <KitBlock>
       <Formik
@@ -45,9 +45,7 @@ export const KitCreater = ({ escFromAdding, addNewCat }) => {
         {({ handleChange, handleSubmit, values }) => (
           <>
             <TouchableOpacity onPress={() => showSearchWindow()}>
-              <KitImage
-                source={require("../../../../assets/images/folder.png")}
-              />
+              <KitImage source={{ uri: urlPhoto }} />
             </TouchableOpacity>
 
             <KitInfo>

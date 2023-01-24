@@ -1,6 +1,13 @@
 import axios from "axios";
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import {
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+} from "react-native";
 import { Formik } from "formik";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -9,20 +16,12 @@ import { createClient } from "pexels";
 const client = createClient(
   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
 );
-const query = "English flag";
+const query = "spain flag";
 
 const SearchWindowView = styled.View`
   padding: 15px;
-  background-color: #dcd2d2;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 90px;
-  /* width: 100%; */
-  /* height: 500px; */
-  z-index: 2;
-  
+  background-color: #f8f5e9;
+  width: 100%;
 `;
 
 const RequestString = styled.View`
@@ -50,19 +49,32 @@ const PicturesBlock = styled.View`
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
   flex-wrap: wrap;
 `;
 const PictureWrapper = styled.View`
-  max-width: 50%;
   margin: 15px;
 `;
 const Picture = styled.Image`
-  width: 150px;
-  height: 150px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 `;
 
-export const SearchWindow = () => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "#1C1B15",
+  },
+  scrollView: {
+    backgroundColor: "#1C1B15",
+    marginHorizontal: 0,
+  },
+});
+
+export const SearchWindow = ({getPicture}) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pictures, setPictures] = React.useState([]);
   const [img, setImg] = React.useState("");
@@ -97,6 +109,7 @@ export const SearchWindow = () => {
   };
 
   React.useEffect(fetchPictures, []);
+  
   return (
     <SearchWindowView>
       <Formik
@@ -117,6 +130,11 @@ export const SearchWindow = () => {
               </TouchableOpacity>
             </RequestString>
             <PicturesBlock>
+              {/* <FlatList
+                data={pictures}
+                renderItem={({ item }) => <Item uri={item.src.small} />}
+                keyExtractor={(item) => item.id}
+              /> */}
               {
                 pictures.map((obj) => (
                   // <TouchableOpacity
@@ -130,10 +148,8 @@ export const SearchWindow = () => {
                   //   deleteCategory={deleteCategory}
                   // />
                   <PictureWrapper key={obj.id}>
-                    <TouchableOpacity
-                      onPress={() => console.log(obj.id)}
-                    >
-                      <Picture source={{ uri: obj.src.small }}/>
+                    <TouchableOpacity onPress={() => getPicture(obj.id)}>
+                      <Picture source={{ uri: obj.src.small }} />
                     </TouchableOpacity>
                   </PictureWrapper>
                   // </TouchableOpacity>
