@@ -38,21 +38,15 @@ export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
         setEditingState(false);
       });
   };
-
-  // const deleteCatecgory = () => {
-  //   axios
-  //     .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles/${catId}`)
-  //     .then(({ data }) => {
-  //       alert(`Category ${data.title} has been successfully deleted`);
-  //       updateItems(catId);
-  //     })
-  //     .catch((err) => {
-  //       alert("Error of deleting");
-  //     })
-  //     .finally(() => {
-  //       setEditingState(false)
-  //     });
-  // }
+  const [num, setNum] = React.useState("0");
+  const getNumSets = () => {
+    axios
+      .get(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets`, { params: { cat_id: catId } })
+      .then(({data}) => {
+        setNum(data.length);
+      })
+  }
+  React.useEffect(getNumSets, []);
 
   return (
     <KitBlock>
@@ -91,7 +85,7 @@ export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
       {!editingState && (
         <>
           <KitInfo>
-            <KitNum>6 cards</KitNum>
+            <KitNum>{num} sets</KitNum>
             <KitTitle>{titleState}</KitTitle>
           </KitInfo>
           <TouchableOpacity onPress={editCategorie} style={styles.button}>
