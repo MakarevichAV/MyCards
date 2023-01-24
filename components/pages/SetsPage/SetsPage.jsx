@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import {
     StyleSheet,
@@ -15,6 +16,7 @@ import { PlusButton } from "../../comon/PlusButton/PlusButton";
 
 const Wrapper = styled.View`
   padding: 15px;
+  padding-bottom: 80px;
   background-color: #f8f5e9;
   min-height: 100%;
 `;
@@ -66,11 +68,21 @@ export const SetsPage = ({ navigation }) => {
     text: {
       fontSize: 42,
     },
+    button: {
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 10,
+      flexGrow: 1,
+      width: 80,
+      height: 80,
+      position: "absolute",
+      bottom: 100,
+      right: 30,
+    },
   });
 
   return (
     <SafeAreaView style={styles.container}>
-      <PlusButton />
       <ScrollView style={styles.scrollView}>
         <Wrapper>
           {items.map((obj) => (
@@ -83,6 +95,9 @@ export const SetsPage = ({ navigation }) => {
           ))}
         </Wrapper>
       </ScrollView>
+      <TouchableOpacity style={styles.button}>
+        <PlusButton />
+      </TouchableOpacity>
       <BottomBar/>
       <StatusBar barStyle="light-content" theme="auto" />
     </SafeAreaView>

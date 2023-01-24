@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { EditElement } from "../../../comon/EditElement/EditElement";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -98,14 +99,14 @@ const VisibleBlock = styled.View`
 const Counter = styled.View``;
 
 const Knob = styled.View`
-    width: 3px;
-    height: 40px;
-    background-color: "rgb(141, 141, 141)";
-    position: absolute;
-    top: 30%;
-    left: -4px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+  width: 3px;
+  height: 40px;
+  background-color: "rgb(141, 141, 141)";
+  position: absolute;
+  top: 30%;
+  left: -4px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 `;
 
 export const Set = ({ title, num, passed }) => {
@@ -123,7 +124,9 @@ export const Set = ({ title, num, passed }) => {
             <BtnTxt>TEST</BtnTxt>
           </BtnTest>
         </BtnBlock>
-        <EditElement />
+        <TouchableOpacity style={styles.button}>
+          <EditElement />
+        </TouchableOpacity>
       </Info>
       <Menu>
         <Knob />
@@ -140,20 +143,28 @@ export const Set = ({ title, num, passed }) => {
             size={32}
             color="#3A4F58"
           />
-            <Text
-              style={{
-                textAlign: "center",
-                color: "#c2c2c2",
-                fontSize: "10",
-                fontWeight: "bold",
-              }}
-            >
-              Passed {"\n"}
-              <Text style={{ color: "#B75F2D" }}>{passed}</Text> /
-              <Text style={{ color: "#3A4F58" }}>{num}</Text>
-            </Text>
+          <Text
+            style={{
+              textAlign: "center",
+              color: "#c2c2c2",
+              fontSize: "10",
+              fontWeight: "bold",
+            }}
+          >
+            Passed {"\n"}
+            <Text style={{ color: "#B75F2D" }}>{passed}</Text> /
+            <Text style={{ color: "#3A4F58" }}>{num}</Text>
+          </Text>
         </VisibleBlock>
       </Menu>
     </SetBlock>
   );
 };
+const styles = StyleSheet.create({
+  button: {
+    alignItems: "center",
+    padding: 10,
+    flexGrow: 1,
+    maxWidth: 50,
+  },
+});
