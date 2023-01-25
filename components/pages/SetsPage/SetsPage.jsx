@@ -3,13 +3,13 @@ import React from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import {
-    StyleSheet,
-    StatusBar,
-    Text,
-    ActivityIndicator,
-    SafeAreaView,
-    ScrollView,
-  } from "react-native";
+  StyleSheet,
+  StatusBar,
+  Text,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { Set } from "./Set/Set";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
 import { PlusButton } from "../../comon/PlusButton/PlusButton";
@@ -21,13 +21,14 @@ const Wrapper = styled.View`
   min-height: 100%;
 `;
 
-export const SetsPage = ({ navigation }) => {
+export const SetsPage = ({ navigation, route }) => {
+  const { id, title } = route.params;
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
   const fetchSets = () => {
     setIsLoading(true);
     axios
-      .get("https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets")
+      .get("https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets?cat_id=" + id)
       .then(({ data }) => {
         setItems(data);
       })
@@ -98,7 +99,7 @@ export const SetsPage = ({ navigation }) => {
       <TouchableOpacity style={styles.button}>
         <PlusButton />
       </TouchableOpacity>
-      <BottomBar/>
+      <BottomBar />
       <StatusBar barStyle="light-content" theme="auto" />
     </SafeAreaView>
   );

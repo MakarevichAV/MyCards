@@ -164,7 +164,7 @@ export const HomePage = ({ navigation }) => {
                 .map((obj) => (
                   <TouchableOpacity
                     key={obj.id}
-                    onPress={() => navigation.navigate("Sets")}
+                    onPress={() => navigation.navigate("Sets", { id: obj.id, title: obj.title })}
                   >
                     <Kit
                       catId={obj.id}
