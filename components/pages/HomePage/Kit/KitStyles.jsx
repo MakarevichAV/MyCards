@@ -2,17 +2,18 @@ import styled from "styled-components/native";
 export const KitBlock = styled.View`
   padding: 15px;
   margin-bottom: 15px;
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
   background: #ffffff;
   border: 1px solid #f8f8f8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
-  /* display: flex; */
-  /* align-items: stretch; */
 `;
 
 export const KitInfo = styled.View`
   flex-grow: 1;
+  flex-shrink: 1;
 `;
 
 export const KitImage = styled.Image`
@@ -25,6 +26,7 @@ export const KitImage = styled.Image`
 export const KitTitle = styled.Text`
   font-size: 16px;
   color: rgb(58, 79, 88);
+  
 `;
 
 export const KitNum = styled.Text`
@@ -35,7 +37,6 @@ export const KitNum = styled.Text`
 export const Buttons = styled.View`
   display: flex;
   flex-direction: row;
-  /* width: 100%; */
 `;
 
 export const TitleInput = styled.TextInput`

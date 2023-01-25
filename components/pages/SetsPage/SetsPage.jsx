@@ -92,6 +92,7 @@ export const SetsPage = ({ navigation, route }) => {
               title={obj.title}
               num={obj.num}
               passed={obj.passed}
+              setId={obj.id}
             />
           ))}
         </Wrapper>

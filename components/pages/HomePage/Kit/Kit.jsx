@@ -32,7 +32,7 @@ export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
         setTitleState(data.title);
       })
       .catch((err) => {
-        alert("Error of cards getting");
+        alert("Error of card updating");
       })
       .finally(() => {
         setEditingState(false);
@@ -68,6 +68,7 @@ export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
                 <TitleInput
                   value={values.title}
                   onChangeText={handleChange("title")}
+                  maxLength={35}
                 />
                 <Buttons>
                   <TouchableOpacity onPress={handleSubmit}>
