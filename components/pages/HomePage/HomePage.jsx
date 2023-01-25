@@ -146,7 +146,6 @@ export const HomePage = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {/* <TopBar /> */}
         <Wrapper>
           {isSearching && <SearchWindow getPicture={getPicture}/>}
           {!isSearching && (
