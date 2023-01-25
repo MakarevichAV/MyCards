@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { EditElement } from "../../../comon/EditElement/EditElement";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
