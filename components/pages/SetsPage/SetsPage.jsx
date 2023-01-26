@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from "react-native";
 import { Set } from "./Set/Set";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
@@ -125,6 +126,7 @@ export const SetsPage = ({ navigation, route }) => {
               num={obj.num}
               passed={obj.passed}
               setId={obj.id}
+              deleteSet={deleteSet}
             />
           ))}
         </Wrapper>
