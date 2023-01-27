@@ -34,7 +34,7 @@ export const SetCreater = ({
   return (
     <SetBlock>
       <Formik
-        initialValues={{ title: "Name of category" }}
+        initialValues={{ title: "Name of set" }}
         onSubmit={(values) => saveSet(values)}
       >
         {({ handleChange, handleSubmit, values }) => (

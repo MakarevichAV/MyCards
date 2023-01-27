@@ -75,15 +75,12 @@ export const HomePage = ({ navigation }) => {
     setIsLoading(true);
     requestOnKits();
   };
-  // const [, forceUpdate] = React.useState({});
   const updateCat = () => {
     fetchKits();
   };
 
   React.useEffect(fetchKits, []);
-  // React.useEffect(updateCat, []);
-  // React.useLayoutEffect(updateCat, []);
-
+  
   const [addingCategory, setEddingCategory] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
   let pictureUrl;
