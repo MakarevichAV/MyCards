@@ -124,6 +124,8 @@ export const HomePage = ({ navigation }) => {
         .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles/${id}`)
         .then(({ data }) => {
           alert(`Category ${data.title} has been successfully deleted`);
+          deleteAllInsideSets(data.id);
+          console.log(data.id);
         })
         .catch((err) => {
           alert("Error of deleting");
@@ -135,13 +137,28 @@ export const HomePage = ({ navigation }) => {
           fetchKits();
         });
     };
-    Alert.alert("You are trying to delete a category", "Are you sure", [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-      { text: "OK", onPress: () => deleteRequest() },
-    ]);
+    Alert.alert(
+      "You are trying to delete a category. All sets of this catagory will be deleted too",
+      "Are you sure?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => deleteRequest() },
+      ]
+    );
+    const deleteAllInsideSets = (catId) => {
+      axios
+        .get(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets?cat_id=${catId}`)
+        .then(({ data }) => {
+          data.forEach((set) => {
+            axios.delete(
+              `https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets/${set.id}`
+            );
+          });
+        });
+    };
   };
 
   if (isLoading) {
