@@ -16,7 +16,7 @@ import {
 } from "./KitStyles";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 
-export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
+export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   const [editingState, setEditingState] = React.useState(false);
   const [titleState, setTitleState] = React.useState(title);
   const editCategorie = () => {
@@ -38,7 +38,7 @@ export const Kit = ({ catId, title, imageUrl, deleteCategory }) => {
         setEditingState(false);
       });
   };
-  const [num, setNum] = React.useState("0");
+  const [num, setNum] = React.useState(setsNumber);
   const getNumSets = () => {
     axios
       .get(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets`, { params: { cat_id: catId } })

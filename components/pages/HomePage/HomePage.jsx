@@ -5,8 +5,6 @@ import styled from "styled-components";
 import {
   StyleSheet,
   StatusBar,
-  Text,
-  ActivityIndicator,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -60,8 +58,7 @@ export const HomePage = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isSearching, setIsSearching] = React.useState(false);
   const [items, setItems] = React.useState([]);
-  const fetchKits = () => {
-    setIsLoading(true);
+  const requestOnKits = () => {
     axios
       .get("https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles")
       .then(({ data }) => {
@@ -74,13 +71,23 @@ export const HomePage = ({ navigation }) => {
         setIsLoading(false);
       });
   };
+  const fetchKits = () => {
+    setIsLoading(true);
+    requestOnKits();
+  };
+  // const [, forceUpdate] = React.useState({});
+  const updateCat = () => {
+    fetchKits();
+  };
 
   React.useEffect(fetchKits, []);
+  // React.useEffect(updateCat, []);
+  // React.useLayoutEffect(updateCat, []);
 
   const [addingCategory, setEddingCategory] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
   let pictureUrl;
-  client.photos.show({ id: 1194775 }).then(photo => {
+  client.photos.show({ id: 1194775 }).then((photo) => {
     pictureUrl = photo.src.small;
   });
   // https://www.pexels.com/photo/selective-focus-photo-of-magnifying-glass-1194775/
@@ -138,16 +145,14 @@ export const HomePage = ({ navigation }) => {
   };
 
   if (isLoading) {
-    return (
-      <LoadingElement />
-    );
+    return <LoadingElement />;
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Wrapper>
-          {isSearching && <SearchWindow getPicture={getPicture}/>}
+          {isSearching && <SearchWindow getPicture={getPicture} />}
           {!isSearching && (
             <>
               {addingCategory && (
@@ -163,7 +168,13 @@ export const HomePage = ({ navigation }) => {
                 .map((obj) => (
                   <TouchableOpacity
                     key={obj.id}
-                    onPress={() => navigation.navigate("Sets", { id: obj.id, title: obj.title })}
+                    onPress={() =>
+                      navigation.navigate("Sets", {
+                        id: obj.id,
+                        title: obj.title,
+                        updateCat: updateCat,
+                      })
+                    }
                   >
                     <Kit
                       catId={obj.id}

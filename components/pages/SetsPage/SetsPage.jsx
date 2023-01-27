@@ -15,6 +15,8 @@ import { Set } from "./Set/Set";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
 import { PlusButton } from "../../comon/PlusButton/PlusButton";
 import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
+import { SetCreater } from "./Set/SetCreater";
+import { TabRouter } from "@react-navigation/native";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -50,6 +52,9 @@ const styles = StyleSheet.create({
 });
 
 export const SetsPage = ({ navigation, route }) => {
+  const updateCat = () => {
+    route.params.updateCat();
+  };
   const { id, title } = route.params;
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
@@ -86,6 +91,7 @@ export const SetsPage = ({ navigation, route }) => {
         .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets/${id}`)
         .then(({ data }) => {
           alert(`Set ${data.title} has been successfully deleted`);
+          route.params.updateCat();
         })
         .catch((err) => {
           alert("Error of deleting");
@@ -107,9 +113,7 @@ export const SetsPage = ({ navigation, route }) => {
   };
 
   if (isLoading) {
-    return (
-      <LoadingElement />
-    );
+    return <LoadingElement />;
   }
 
   return (
@@ -117,7 +121,7 @@ export const SetsPage = ({ navigation, route }) => {
       <ScrollView style={styles.scrollView}>
         <Wrapper>
           {addingSet && (
-            <></>
+            <SetCreater escFromAdding={escFromAdding} addNewSet={addNewSet} catId={id} updateCat={updateCat} />
           )}
           {items.map((obj) => (
             <Set
@@ -128,7 +132,7 @@ export const SetsPage = ({ navigation, route }) => {
               setId={obj.id}
               deleteSet={deleteSet}
             />
-          ))}
+          )).reverse()}
         </Wrapper>
       </ScrollView>
       <TouchableOpacity style={styles.button} onPress={addSet}>

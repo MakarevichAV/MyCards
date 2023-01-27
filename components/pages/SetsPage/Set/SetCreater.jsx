@@ -8,15 +8,20 @@ import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 
 export const SetCreater = ({
   escFromAdding,
-  addNewSet
+  addNewSet,
+  catId,
+  updateCat
 }) => {
   const saveSet = (values) => {
     axios
       .post(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets`, {
         title: values.title,
+        num: 0,
+        cat_id: catId
       })
       .then(({ data }) => {
         addNewSet(data);
+        updateCat();
       })
       .catch((err) => {
         alert("Error of saving");
