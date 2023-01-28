@@ -121,18 +121,34 @@ export const SetsPage = ({ navigation, route }) => {
       <ScrollView style={styles.scrollView}>
         <Wrapper>
           {addingSet && (
-            <SetCreater escFromAdding={escFromAdding} addNewSet={addNewSet} catId={id} updateCat={updateCat} />
-          )}
-          {items.map((obj) => (
-            <Set
-              key={obj.id}
-              title={obj.title}
-              num={obj.num}
-              passed={obj.passed}
-              setId={obj.id}
-              deleteSet={deleteSet}
+            <SetCreater
+              escFromAdding={escFromAdding}
+              addNewSet={addNewSet}
+              catId={id}
+              updateCat={updateCat}
             />
-          )).reverse()}
+          )}
+          {items
+            .map((obj) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Cards", {
+                    id: obj.id,
+                    title: obj.title
+                  })
+                }
+              >
+                <Set
+                  key={obj.id}
+                  title={obj.title}
+                  num={obj.num}
+                  passed={obj.passed}
+                  setId={obj.id}
+                  deleteSet={deleteSet}
+                />
+              </TouchableOpacity>
+            ))
+            .reverse()}
         </Wrapper>
       </ScrollView>
       <TouchableOpacity style={styles.button} onPress={addSet}>

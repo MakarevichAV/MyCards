@@ -81,7 +81,14 @@ export const Set = ({ setId, title, num, passed, deleteSet }) => {
             <Num>{num} cards</Num>
             <Title>{titleState}</Title>
             <BtnBlock>
-              <BtnView>
+              <BtnView
+                // onPress={() =>
+                //   navigation.navigate("Cards", {
+                //     id: setId,
+                //     title: title
+                //   })
+                // }
+              >
                 <BtnTxt>VIEW</BtnTxt>
               </BtnView>
               <BtnTest>

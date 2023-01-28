@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { HomePage } from "./HomePage/HomePage";
 import { SetsPage } from "./SetsPage/SetsPage";
+import { CardsPage } from "./CardsPage/CardsPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +25,13 @@ export const Navigation = () => {
         <Stack.Screen
           name="Sets"
           component={SetsPage}
-          // options={{ title: "Collections" }}
+          options={({ route }) => ({
+            title: route.params.title
+          })}
+        />
+        <Stack.Screen
+          name="Cards"
+          component={CardsPage}
           options={({ route }) => ({
             title: route.params.title
           })}
