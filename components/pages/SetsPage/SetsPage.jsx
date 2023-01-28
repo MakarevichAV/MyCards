@@ -5,8 +5,6 @@ import styled from "styled-components";
 import {
   StyleSheet,
   StatusBar,
-  Text,
-  ActivityIndicator,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -16,7 +14,7 @@ import { BottomBar } from "../../comon/BottomBar/BottomBar";
 import { PlusButton } from "../../comon/PlusButton/PlusButton";
 import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
 import { SetCreater } from "./Set/SetCreater";
-import { TabRouter } from "@react-navigation/native";
+import { urlSet } from "../../../api/src";
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -61,7 +59,7 @@ export const SetsPage = ({ navigation, route }) => {
   const fetchSets = () => {
     setIsLoading(true);
     axios
-      .get("https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets?cat_id=" + id)
+      .get(urlSet + "?cat_id=" + id)
       .then(({ data }) => {
         setItems(data);
       })
@@ -88,7 +86,7 @@ export const SetsPage = ({ navigation, route }) => {
   const deleteSet = (id) => {
     const deleteRequest = () => {
       axios
-        .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets/${id}`)
+        .delete(`${urlSet}/${id}`)
         .then(({ data }) => {
           alert(`Set ${data.title} has been successfully deleted`);
           route.params.updateCat();
@@ -131,15 +129,15 @@ export const SetsPage = ({ navigation, route }) => {
           {items
             .map((obj) => (
               <TouchableOpacity
+                key={obj.id}
                 onPress={() =>
                   navigation.navigate("Cards", {
                     id: obj.id,
-                    title: obj.title
+                    title: obj.title,
                   })
                 }
               >
                 <Set
-                  key={obj.id}
                   title={obj.title}
                   num={obj.num}
                   passed={obj.passed}

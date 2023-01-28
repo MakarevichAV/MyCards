@@ -15,6 +15,7 @@ import {
   Buttons,
 } from "./KitStyles";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
+import { urlCat, urlSet } from "../../../../api/src";
 
 export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   const [editingState, setEditingState] = React.useState(false);
@@ -25,7 +26,7 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   const saveCategorie = (newValues) => {
     axios
       .put(
-        `https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles/${catId}`,
+        `${urlCat}/${catId}`,
         newValues
       )
       .then(({ data }) => {
@@ -41,7 +42,7 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   const [num, setNum] = React.useState(setsNumber);
   const getNumSets = () => {
     axios
-      .get(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets`, { params: { cat_id: catId } })
+      .get(urlSet, { params: { cat_id: catId } })
       .then(({data}) => {
         setNum(data.length);
       })

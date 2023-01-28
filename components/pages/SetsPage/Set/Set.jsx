@@ -25,6 +25,7 @@ import {
   TitleInput,
   Buttons,
 } from "./SetStyles.jsx";
+import { urlSet } from "../../../../api/src";
 
 export const Set = ({ setId, title, num, passed, deleteSet }) => {
   const [toggle, setToggle] = useState(false);
@@ -36,7 +37,7 @@ export const Set = ({ setId, title, num, passed, deleteSet }) => {
   const saveSet = (newValues) => {
     axios
       .put(
-        `https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets/${setId}`,
+        `${urlSet}/${setId}`,
         newValues
       )
       .then(({ data }) => {

@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import { KitBlock, KitImage, KitInfo, TitleInput, Buttons } from "./KitStyles";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
+import { urlCat } from "../../../../api/src";
 
 export const KitCreater = ({
   escFromAdding,
@@ -16,7 +17,7 @@ export const KitCreater = ({
   const defUrl = urlPhoto;
   const saveCategorie = (values) => {
     axios
-      .post(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles`, {
+      .post(urlCat, {
         title: values.title,
         imageUri: urlPhoto,
       })

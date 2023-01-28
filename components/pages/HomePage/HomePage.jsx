@@ -16,6 +16,7 @@ import { KitCreater } from "./Kit/KitCreater";
 import { SearchWindow } from "../HomePage/SearchWindow/SearchWindow";
 import { createClient } from "pexels";
 import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
+import { urlCat, urlSet } from "../../../api/src";
 
 const client = createClient(
   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
@@ -60,7 +61,7 @@ export const HomePage = ({ navigation }) => {
   const [items, setItems] = React.useState([]);
   const requestOnKits = () => {
     axios
-      .get("https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles")
+      .get(urlCat)
       .then(({ data }) => {
         setItems(data);
       })
@@ -84,10 +85,11 @@ export const HomePage = ({ navigation }) => {
   const [addingCategory, setEddingCategory] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
   let pictureUrl;
+
   client.photos.show({ id: 1194775 }).then((photo) => {
     pictureUrl = photo.src.small;
   });
-  // https://www.pexels.com/photo/selective-focus-photo-of-magnifying-glass-1194775/
+  
   const addCategory = () => {
     setEddingCategory(true);
     setUrlPhoto(pictureUrl);
@@ -118,7 +120,7 @@ export const HomePage = ({ navigation }) => {
   const deleteCategory = (id) => {
     const deleteRequest = () => {
       axios
-        .delete(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/CardTitles/${id}`)
+        .delete(`${urlCat}/${id}`)
         .then(({ data }) => {
           alert(`Category ${data.title} has been successfully deleted`);
           deleteAllInsideSets(data.id);
@@ -147,11 +149,11 @@ export const HomePage = ({ navigation }) => {
     );
     const deleteAllInsideSets = (catId) => {
       axios
-        .get(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets?cat_id=${catId}`)
+        .get(`${urlSet}?cat_id=${catId}`)
         .then(({ data }) => {
           data.forEach((set) => {
             axios.delete(
-              `https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets/${set.id}`
+              `${urlSet}/${set.id}`
             );
           });
         });

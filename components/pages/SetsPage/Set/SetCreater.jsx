@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import { SetBlock, Info, TitleInput, Buttons } from "./SetStyles";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
+import { urlSet } from "../../../../api/src";
 
 export const SetCreater = ({
   escFromAdding,
@@ -14,7 +15,7 @@ export const SetCreater = ({
 }) => {
   const saveSet = (values) => {
     axios
-      .post(`https://63a0b184e3113e5a5c44cd5c.mockapi.io/sets`, {
+      .post(urlSet, {
         title: values.title,
         num: 0,
         cat_id: catId
