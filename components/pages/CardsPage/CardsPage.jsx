@@ -100,8 +100,9 @@ export const CardsPage = ({ navigation, route }) => {
   const [autoPlay, setAutoPlay] = React.useState(false);
   const [autoPlayReverse, setAutoPlayReverse] = React.useState(false);
 
-  const data = React.useRef([...new Array(6).keys()]).current;
-  const viewCount = 5;
+  //   const data = React.useRef([...new Array().keys()]).current;
+  const data = React.useRef([...items.keys()]).current;
+  //   const viewCount = 5;
 
   if (isLoading) {
     return <LoadingElement />;
@@ -145,25 +146,26 @@ export const CardsPage = ({ navigation, route }) => {
             <Carousel
               style={{
                 width: "100%",
-                height: 240,
+                height: 440,
                 alignItems: "center",
                 justifyContent: "center",
               }}
               width={280}
-              height={210}
+              height={410}
               pagingEnabled={pagingEnabled}
               snapEnabled={snapEnabled}
               mode={mode}
               loop={loop}
               autoPlay={autoPlay}
               autoPlayReverse={autoPlayReverse}
-              data={data}
+              //   data={data}
+              data={items}
               modeConfig={{
                 snapDirection,
                 stackInterval: mode === "vertical-stack" ? 8 : 18,
               }}
-              customConfig={() => ({ type: "positive", viewCount })}
-              renderItem={({ index }) =>
+              //   customConfig={() => ({ type: "positive", viewCount })}
+              renderItem={({ index }) => (
                 // items
                 //   .map((obj) => (
                 //     <TouchableOpacity
@@ -182,14 +184,36 @@ export const CardsPage = ({ navigation, route }) => {
                 //     </TouchableOpacity>
                 //   ))
                 //   .reverse()
-                <SBItem
-                  index={index}
+
+                <TouchableOpacity
                   key={index}
-                  entering={FadeInRight.delay(
-                    (viewCount - index) * 100
-                  ).duration(200)}
-                />
-              }
+                  onPress={() => console.log(items[index].imgUri)}
+                >
+                  <Card
+                    imgUri={items[index].imgUri}
+                    name={items[index].name}
+                    transcription={items[index].transcription}
+                    example={items[index].example}
+                    translate={items[index].translate}
+                  />
+                  {/* <Text>{obj.name}</Text> */}
+                  {/* <Set
+                  title={obj.title}
+                  num={obj.num}
+                  passed={obj.passed}
+                  setId={obj.id}
+                  deleteSet={deleteSet}
+                /> */}
+                </TouchableOpacity>
+
+                // <SBItem
+                //   index={index}
+                //   key={index}
+                // //   entering={FadeInRight.delay(
+                // //     (viewCount - index) * 100
+                // //   ).duration(200)}
+                // />
+              )}
             />
             <View
               style={{
@@ -257,24 +281,26 @@ export const CardsPage = ({ navigation, route }) => {
             </View>
           </View>
 
-          {items
-            .map((obj) => (
-              <TouchableOpacity
-                key={obj.id}
-                onPress={() => console.log(obj.name)}
-              >
-                {/* <Card name={obj.name}/> */}
-                {/* <Text>{obj.name}</Text> */}
-                {/* <Set
-                  title={obj.title}
-                  num={obj.num}
-                  passed={obj.passed}
-                  setId={obj.id}
-                  deleteSet={deleteSet}
-                /> */}
-              </TouchableOpacity>
-            ))
-            .reverse()}
+          {
+            //   items
+            //     .map((obj) => (
+            //       <TouchableOpacity
+            //         key={obj.id}
+            //         onPress={() => console.log(obj.name)}
+            //       >
+            //         {/* <Card name={obj.name}/> */}
+            //         {/* <Text>{obj.name}</Text> */}
+            //         {/* <Set
+            //           title={obj.title}
+            //           num={obj.num}
+            //           passed={obj.passed}
+            //           setId={obj.id}
+            //           deleteSet={deleteSet}
+            //         /> */}
+            //       </TouchableOpacity>
+            //     ))
+            //     .reverse()
+          }
         </Wrapper>
       </ScrollView>
       <TouchableOpacity style={styles.button} onPress={addCard}>

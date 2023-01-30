@@ -24,14 +24,15 @@ export const SBImageItem = ({
   showIndex = true,
 }) => {
   const index = (_index || 0) + 1;
-  const source = React.useRef<ImageURISource>({
+  const source = React.useRef({
     uri: `https://picsum.photos/id/${index}/400/300`,
-  }).current;
+  });
+//   .current;
 
   return (
     <View style={[styles.container, style]}>
       <ActivityIndicator size="small" />
-      <Image key={index} style={styles.image} source={source} />
+      <Image key={index} style={styles.image} source={{uri: `https://picsum.photos/id/${index}/400/300`}} />
       <Text
         style={{
           position: "absolute",
@@ -58,12 +59,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "#ececec"
   },
   image: {
     position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
+    right: 0
   },
 });
