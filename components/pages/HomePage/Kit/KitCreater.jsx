@@ -43,7 +43,7 @@ export const KitCreater = ({
           <>
             <TouchableOpacity onPress={() => showSearchWindow()}>
               {!urlPhoto ? (
-                <AntDesign name="clouddownload" size={60} color="black" />
+                <AntDesign style={{paddingRight: 10}} name="clouddownload" size={55} color="black" />
               ) : (
                 <KitImage source={{ uri: urlPhoto }} />
               )}

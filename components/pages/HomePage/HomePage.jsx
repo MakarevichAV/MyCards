@@ -19,9 +19,9 @@ import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
 import { urlCat, urlSet } from "../../../api/src";
 import { urlPictureApi } from "../../../api/src";
 
-const client = createClient(
-  "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
-);
+// const client = createClient(
+//   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
+// );
 
 const Wrapper = styled.View`
   padding: 15px;
@@ -97,6 +97,7 @@ export const HomePage = ({ navigation }) => {
   };
   const escFromAdding = () => {
     setEddingCategory(false);
+    setUrlPhoto("");
   };
   const addNewCat = (data) => {
     setItems([...items, data]);

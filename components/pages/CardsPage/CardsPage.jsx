@@ -78,7 +78,7 @@ export const CardsPage = ({ navigation, route }) => {
   const [items, setItems] = React.useState([]);
   const [addingCard, setAddingCard] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
-
+  const [addingCategory, setAddingCategory] = React.useState(false);
   // let pictureUrl;
   // client.photos.show({ id: 1194775 }).then((photo) => {
   //   pictureUrl = photo.src.small;
@@ -87,6 +87,11 @@ export const CardsPage = ({ navigation, route }) => {
   const addCard = () => {
     setAddingCard(true);
     // setUrlPhoto(pictureUrl);
+  };
+  const escFromAdding = () => {
+    setAddingCard(false);
+    setUrlPhoto("");
+
   };
 
   const fetchCards = () => {
@@ -106,9 +111,6 @@ export const CardsPage = ({ navigation, route }) => {
 
   React.useEffect(fetchCards, []);
 
-  const escFromAdding = () => {
-    setEddingCategory(false);
-  };
   const addNewCard = (data) => {
     setItems([...items, data]);
   };
