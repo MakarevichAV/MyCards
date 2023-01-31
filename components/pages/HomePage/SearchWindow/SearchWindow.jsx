@@ -1,18 +1,17 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  StatusBar
-} from "react-native";
+import { TouchableOpacity, StyleSheet, StatusBar, Text } from "react-native";
 import { Formik } from "formik";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { createClient } from "pexels";
 import { LoadingElement } from "../../../comon/LoadingElement/LoadingElement";
+import { urlPictureApi } from "../../../../api/src";
+import axios from "axios";
 
 const client = createClient(
   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
 );
+const API_KEY = "33256265-9311bbeda59bd85787262c6fb";
 
 const SearchWindowView = styled.View`
   padding: 15px;
@@ -68,16 +67,30 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SearchWindow = ({getPicture}) => {
+export const SearchWindow = ({ getPicture }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pictures, setPictures] = React.useState([]);
-  const [query, setQuery] = React.useState("english flag");
+  const [query, setQuery] = React.useState("english");
+  // const fetchPictures = () => {
+  //   setIsLoading(true);
+  //   client.photos
+  //     .search({ query, per_page: 40 })
+  //     .then((photos) => {
+  //       setPictures(photos.photos);
+  //     })
+  //     .catch((err) => {
+  //       alert("Error of photos getting");
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // };
   const fetchPictures = () => {
     setIsLoading(true);
-    client.photos
-      .search({ query, per_page: 40 })
-      .then((photos) => {
-        setPictures(photos.photos);
+    axios
+      .get(urlPictureApi + `&q=${query}&image_type=vector&per_page=60`)
+      .then((data) => {
+        setPictures(data.data.hits);
       })
       .catch((err) => {
         alert("Error of photos getting");
@@ -86,22 +99,32 @@ export const SearchWindow = ({getPicture}) => {
         setIsLoading(false);
       });
   };
-  
+
   const searchPictures = (query) => {
     setIsLoading(true);
-    client.photos
-      .search({ query, per_page: 40 })
-      .then((photos) => {
-        setPictures(photos.photos);
+    axios
+      .get(urlPictureApi + `&q=${query}&image_type=vector&per_page=60`)
+      .then((data) => {
+        setPictures(data.data.hits);
       })
       .catch((err) => {
-        alert("Error of photos getting 2");
+        alert("Error of photos getting");
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }
-
+    // client.photos
+    //   .search({ query, per_page: 40 })
+    //   .then((photos) => {
+    //     setPictures(photos.photos);
+    //   })
+    //   .catch((err) => {
+    //     alert("Error of photos getting 2");
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
+  };
 
   React.useEffect(fetchPictures, []);
 
@@ -126,15 +149,16 @@ export const SearchWindow = ({getPicture}) => {
             </RequestString>
             <PicturesBlock>
               {isLoading && <LoadingElement />}
-              {!isLoading &&
+              {!isLoading && (
                 pictures.map((obj) => (
                   <Wrapper key={obj.id}>
                     <TouchableOpacity onPress={() => getPicture(obj.id)}>
-                      <Picture source={{ uri: obj.src.small }} />
+                      <Picture source={{ uri: obj.previewURL }} />
                     </TouchableOpacity>
                   </Wrapper>
                 ))
-              }
+                // <Text>{pictures}</Text>
+              )}
             </PicturesBlock>
           </>
         )}

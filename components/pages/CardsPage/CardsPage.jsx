@@ -16,7 +16,7 @@ import {
 import { PlusButton } from "../../comon/PlusButton/PlusButton";
 import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
 import { BottomBar } from "../../comon/BottomBar/BottomBar";
-import { urlCard } from "../../../api/src";
+import { urlCard, urlPictureApi } from "../../../api/src";
 import { Card } from "./Card/Card";
 import Carousel from "react-native-reanimated-carousel";
 import "react-native-reanimated";
@@ -78,12 +78,12 @@ export const CardsPage = ({ navigation, route }) => {
   const [items, setItems] = React.useState([]);
   const [addingCard, setAddingCard] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
-  
+
   // let pictureUrl;
   // client.photos.show({ id: 1194775 }).then((photo) => {
   //   pictureUrl = photo.src.small;
   // });
-  
+
   const addCard = () => {
     setAddingCard(true);
     // setUrlPhoto(pictureUrl);
@@ -117,10 +117,22 @@ export const CardsPage = ({ navigation, route }) => {
   };
 
   const getPicture = (id) => {
-    client.photos
-      .show({ id: id })
-      .then((photo) => {
-        setUrlPhoto(photo.src.small);
+    // client.photos
+    //   .show({ id: id })
+    //   .then((photo) => {
+    //     setUrlPhoto(photo.src.small);
+    //   })
+    //   .catch((err) => {
+    //     alert("Error of getting photo");
+    //   })
+    //   .finally(() => {
+    //     setIsSearching(false);
+    //   });
+    axios
+      .get(urlPictureApi + `&id=${id}`)
+      .then((data) => {
+        setUrlPhoto(data.data.hits[0].previewURL);
+        // console.log(data.data.hits[0].userImageURL);
       })
       .catch((err) => {
         alert("Error of getting photo");

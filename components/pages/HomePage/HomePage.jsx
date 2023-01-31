@@ -17,6 +17,7 @@ import { SearchWindow } from "../HomePage/SearchWindow/SearchWindow";
 import { createClient } from "pexels";
 import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
 import { urlCat, urlSet } from "../../../api/src";
+import { urlPictureApi } from "../../../api/src";
 
 const client = createClient(
   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
@@ -84,15 +85,15 @@ export const HomePage = ({ navigation }) => {
   
   const [addingCategory, setEddingCategory] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
-  let pictureUrl;
+  // let pictureUrl;
 
-  client.photos.show({ id: 1194775 }).then((photo) => {
-    pictureUrl = photo.src.small;
-  });
+  // client.photos.show({ id: 1194775 }).then((photo) => {
+  //   pictureUrl = photo.src.small;
+  // });
   
   const addCategory = () => {
     setEddingCategory(true);
-    setUrlPhoto(pictureUrl);
+    // setUrlPhoto(pictureUrl);
   };
   const escFromAdding = () => {
     setEddingCategory(false);
@@ -104,10 +105,22 @@ export const HomePage = ({ navigation }) => {
     setIsSearching(true);
   };
   const getPicture = (id) => {
-    client.photos
-      .show({ id: id })
-      .then((photo) => {
-        setUrlPhoto(photo.src.small);
+    // client.photos
+    //   .show({ id: id })
+    //   .then((photo) => {
+    //     setUrlPhoto(photo.src.small);
+    //   })
+    //   .catch((err) => {
+    //     alert("Error of getting photo");
+    //   })
+    //   .finally(() => {
+    //     setIsSearching(false);
+    //   });
+    axios
+      .get(urlPictureApi + `&id=${id}`)
+      .then((data) => {
+        setUrlPhoto(data.data.hits[0].previewURL);
+        // console.log(data.data.hits[0].userImageURL);
       })
       .catch((err) => {
         alert("Error of getting photo");

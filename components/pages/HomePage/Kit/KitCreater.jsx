@@ -6,6 +6,7 @@ import { KitBlock, KitImage, KitInfo, TitleInput, Buttons } from "./KitStyles";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 import { urlCat } from "../../../../api/src";
+import { AntDesign } from "@expo/vector-icons";
 
 export const KitCreater = ({
   escFromAdding,
@@ -29,7 +30,6 @@ export const KitCreater = ({
       })
       .finally(() => {
         escFromAdding();
-
       });
   };
 
@@ -42,7 +42,11 @@ export const KitCreater = ({
         {({ handleChange, handleSubmit, values }) => (
           <>
             <TouchableOpacity onPress={() => showSearchWindow()}>
-              <KitImage source={{ uri: urlPhoto }} />
+              {!urlPhoto ? (
+                <AntDesign name="clouddownload" size={60} color="black" />
+              ) : (
+                <KitImage source={{ uri: urlPhoto }} />
+              )}
             </TouchableOpacity>
 
             <KitInfo>
