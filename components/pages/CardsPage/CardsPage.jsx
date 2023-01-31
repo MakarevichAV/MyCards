@@ -22,7 +22,13 @@ import Carousel from "react-native-reanimated-carousel";
 import "react-native-reanimated";
 import { FadeInRight } from "react-native-reanimated";
 import { SBItem } from "./Card/SBItem";
+import { createClient } from "pexels";
 import { CardCreater } from "./Card/CardCreater";
+import { SearchWindow } from "../HomePage/SearchWindow/SearchWindow";
+
+const client = createClient(
+  "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
+);
 
 const Wrapper = styled.View`
   padding-top: 15px;
@@ -67,13 +73,20 @@ const styles = StyleSheet.create({
 export const CardsPage = ({ navigation, route }) => {
   const width = Dimensions.get("window").width;
   const { id, title } = route.params;
-
+  const [isSearching, setIsSearching] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
   const [addingCard, setAddingCard] = React.useState(false);
-
+  const [urlPhoto, setUrlPhoto] = React.useState("");
+  
+  // let pictureUrl;
+  // client.photos.show({ id: 1194775 }).then((photo) => {
+  //   pictureUrl = photo.src.small;
+  // });
+  
   const addCard = () => {
     setAddingCard(true);
+    // setUrlPhoto(pictureUrl);
   };
 
   const fetchCards = () => {
@@ -92,6 +105,30 @@ export const CardsPage = ({ navigation, route }) => {
   };
 
   React.useEffect(fetchCards, []);
+
+  const escFromAdding = () => {
+    setEddingCategory(false);
+  };
+  const addNewCard = (data) => {
+    setItems([...items, data]);
+  };
+  const showSearchWindow = () => {
+    setIsSearching(true);
+  };
+
+  const getPicture = (id) => {
+    client.photos
+      .show({ id: id })
+      .then((photo) => {
+        setUrlPhoto(photo.src.small);
+      })
+      .catch((err) => {
+        alert("Error of getting photo");
+      })
+      .finally(() => {
+        setIsSearching(false);
+      });
+  };
 
   const [mode, setMode] = React.useState("horizontal-stack");
   const [snapDirection, setSnapDirection] = React.useState("left");
@@ -113,122 +150,101 @@ export const CardsPage = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Wrapper>
-          {/* <View style={{ flex: 1 }}>
-            <Carousel
-              style={styles.carousel}
-              //   loop
-              stack-vertical-left
-              width={300}
-              height={400}
-              autoPlay={false}
-              data={
-                [...new Array(6).keys()]
-                // [...new Array(6).keys()]
-              }
-              //   scrollAnimationDuration={1000}
-              //   onSnapToItem={(index) => console.log("current index:", index)}
-              renderItem={({ index }) => (
-                <View
+          {isSearching && <SearchWindow getPicture={getPicture} />}
+          {!isSearching && (
+            <View style={{ flex: 1 }}>
+              {addingCard && (
+                <CardCreater
+                  escFromAdding={escFromAdding}
+                  addNewCat={addNewCard}
+                  getPicture={getPicture}
+                  showSearchWindow={showSearchWindow}
+                  urlPhoto={urlPhoto}
+                />
+              )}
+              {!addingCard && (
+                <Carousel
                   style={{
-                    flex: 1,
-                    borderWidth: 1,
+                    width: "100%",
+                    height: 440,
+                    alignItems: "center",
                     justifyContent: "center",
                   }}
-                >
-                  <Text style={{ textAlign: "center", fontSize: 30 }}>
-                    {index}
-                  </Text>
-                </View>
-              )}
-            />
-          </View> */}
+                  width={280}
+                  height={410}
+                  pagingEnabled={pagingEnabled}
+                  snapEnabled={snapEnabled}
+                  mode={mode}
+                  loop={loop}
+                  autoPlay={autoPlay}
+                  autoPlayReverse={autoPlayReverse}
+                  //   data={data}
+                  data={items}
+                  modeConfig={{
+                    snapDirection,
+                    stackInterval: mode === "vertical-stack" ? 8 : 18,
+                  }}
+                  //   customConfig={() => ({ type: "positive", viewCount })}
+                  renderItem={({ index }) => (
+                    // items
+                    //   .map((obj) => (
+                    //     <TouchableOpacity
+                    //       key={obj.id}
+                    //       onPress={() => console.log(obj.name)}
+                    //     >
+                    //       <Card name={obj.name}/>
+                    //       {/* <Text>{obj.name}</Text> */}
+                    //       {/* <Set
+                    //   title={obj.title}
+                    //   num={obj.num}
+                    //   passed={obj.passed}
+                    //   setId={obj.id}
+                    //   deleteSet={deleteSet}
+                    // /> */}
+                    //     </TouchableOpacity>
+                    //   ))
+                    //   .reverse()
 
-          <View style={{ flex: 1 }}>
-            {addingCard &&
-                <CardCreater />
-            }
-            {!addingCard &&
-            <Carousel
-              style={{
-                width: "100%",
-                height: 440,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              width={280}
-              height={410}
-              pagingEnabled={pagingEnabled}
-              snapEnabled={snapEnabled}
-              mode={mode}
-              loop={loop}
-              autoPlay={autoPlay}
-              autoPlayReverse={autoPlayReverse}
-              //   data={data}
-              data={items}
-              modeConfig={{
-                snapDirection,
-                stackInterval: mode === "vertical-stack" ? 8 : 18,
-              }}
-              //   customConfig={() => ({ type: "positive", viewCount })}
-              renderItem={({ index }) => (
-                // items
-                //   .map((obj) => (
-                //     <TouchableOpacity
-                //       key={obj.id}
-                //       onPress={() => console.log(obj.name)}
-                //     >
-                //       <Card name={obj.name}/>
-                //       {/* <Text>{obj.name}</Text> */}
-                //       {/* <Set
-                //   title={obj.title}
-                //   num={obj.num}
-                //   passed={obj.passed}
-                //   setId={obj.id}
-                //   deleteSet={deleteSet}
-                // /> */}
-                //     </TouchableOpacity>
-                //   ))
-                //   .reverse()
-
-                <TouchableOpacity
-                  activeOpacity={1}
-                  key={index}
-                  onPress={() => console.log(items[index].imgUri)}
-                >
-                  <Card
-                    imgUri={items[index].imgUri}
-                    name={items[index].name}
-                    transcription={items[index].transcription}
-                    example={items[index].example}
-                    translate={items[index].translate}
-                  />
-                  {/* <Text>{obj.name}</Text> */}
-                  {/* <Set
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      key={index}
+                      onPress={() => console.log(items[index].imgUri)}
+                    >
+                      <Card
+                        imgUri={items[index].imgUri}
+                        name={items[index].name}
+                        transcription={items[index].transcription}
+                        example={items[index].example}
+                        translate={items[index].translate}
+                      />
+                      {/* <Text>{obj.name}</Text> */}
+                      {/* <Set
                   title={obj.title}
                   num={obj.num}
                   passed={obj.passed}
                   setId={obj.id}
                   deleteSet={deleteSet}
                 /> */}
-                </TouchableOpacity>
+                    </TouchableOpacity>
 
-                // <SBItem
-                //   index={index}
-                //   key={index}
-                // //   entering={FadeInRight.delay(
-                // //     (viewCount - index) * 100
-                // //   ).duration(200)}
-                // />
+                    // <SBItem
+                    //   index={index}
+                    //   key={index}
+                    // //   entering={FadeInRight.delay(
+                    // //     (viewCount - index) * 100
+                    // //   ).duration(200)}
+                    // />
+                  )}
+                />
               )}
-            />}
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-evenly",
-              }}
-            >
-              {/* <SButton
+              <View
+                style={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                {/* <SButton
                 onPress={() => {
                   setMode("horizontal-stack");
                 }}
@@ -284,9 +300,9 @@ export const CardsPage = ({ navigation, route }) => {
               >
                 {`snapEnabled:${snapEnabled}`}
               </SButton> */}
+              </View>
             </View>
-          </View>
-
+          )}
           {
             //   items
             //     .map((obj) => (

@@ -27,13 +27,12 @@ const CardBox = styled.View`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 const Picture = styled.View`
-  /* width: 100%; */
+  width: 100%;
   height: 100px;
   margin-bottom: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 1px; */
 `;
 const Termin = styled.TextInput`
   /* text-align: center; */
@@ -57,6 +56,17 @@ const Buttons = styled.View`
   flex-direction: row;
   margin-top: 20px;
 `;
+const Block = styled.View`
+  height: 100%;
+  width: 250px;
+`;
+
+const styles = StyleSheet.create({
+  picture: {
+    flex: 1,
+    justifyContent: "center",
+  },
+});
 
 export const CardCreater = ({
   escFromAdding,
@@ -102,10 +112,25 @@ export const CardCreater = ({
           {({ handleChange, handleSubmit, values }) => (
             <>
               <TouchableOpacity onPress={() => showSearchWindow()}>
+                {/* <ImageBackground
+                  source={{ uri: "https://reactjs.org/logo-og.png" }}
+                  resizeMode="contain"
+                  style={styles.picture}
+                > */}
                 <Picture>
-                  <AntDesign name="clouddownload" size={60} color="black" />
-                  <ImageBackground resizeMode="contain" source={urlPhoto} />
+                  {!urlPhoto ? (
+                    <AntDesign name="clouddownload" size={60} color="black" />
+                  ) : (
+                    <ImageBackground
+                      source={{ uri: urlPhoto }}
+                      resizeMode="contain"
+                      style={styles.picture}
+                    >
+                      <Block></Block>
+                    </ImageBackground>
+                  )}
                 </Picture>
+                {/* </ImageBackground> */}
               </TouchableOpacity>
               <Title>Front side</Title>
               <Termin
