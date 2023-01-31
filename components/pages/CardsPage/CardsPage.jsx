@@ -22,9 +22,10 @@ import Carousel from "react-native-reanimated-carousel";
 import "react-native-reanimated";
 import { FadeInRight } from "react-native-reanimated";
 import { SBItem } from "./Card/SBItem";
+import { CardCreater } from "./Card/CardCreater";
 
 const Wrapper = styled.View`
-  /* padding: 15px; */
+  padding-top: 15px;
   padding-bottom: 80px;
   background-color: #f8f5e9;
   min-height: 100%;
@@ -143,6 +144,10 @@ export const CardsPage = ({ navigation, route }) => {
           </View> */}
 
           <View style={{ flex: 1 }}>
+            {addingCard &&
+                <CardCreater />
+            }
+            {!addingCard &&
             <Carousel
               style={{
                 width: "100%",
@@ -186,6 +191,7 @@ export const CardsPage = ({ navigation, route }) => {
                 //   .reverse()
 
                 <TouchableOpacity
+                  activeOpacity={1}
                   key={index}
                   onPress={() => console.log(items[index].imgUri)}
                 >
@@ -214,7 +220,7 @@ export const CardsPage = ({ navigation, route }) => {
                 // //   ).duration(200)}
                 // />
               )}
-            />
+            />}
             <View
               style={{
                 flexDirection: "row",
