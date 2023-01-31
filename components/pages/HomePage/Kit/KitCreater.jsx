@@ -14,8 +14,6 @@ export const KitCreater = ({
   showSearchWindow,
   urlPhoto,
 }) => {
-  // const [searchWindowState, setSearchWindowState] = React.useState(false);
-  // const defUrl = urlPhoto;
   const saveCategorie = (values) => {
     axios
       .post(urlCat, {

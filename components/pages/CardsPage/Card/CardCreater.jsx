@@ -1,4 +1,6 @@
 import axios from "axios";
+import React from "react";
+
 import { TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { Text, StyleSheet, View, Image, ImageBackground } from "react-native";
@@ -73,20 +75,30 @@ export const CardCreater = ({
   addNewCard,
   showSearchWindow,
   urlPhoto,
+  setId,
+  collectionData,
 }) => {
+  const [data, setData] = React.useState(collectionData);
+
   const saveCard = (values) => {
     axios
-      .post(urlCard + id, {
-        imgUri: urlPhoto,
-        name: values.txt1,
-        transcription: values.txt2,
-        example: values.txt3,
-        translate: values.txt4,
-        string1: values.str1,
-        string2: values.str2,
+      .put(urlCard + setId, {
+        cards: [
+          ...data.cards.reverse(),
+          {
+            imgUri: urlPhoto,
+            name: values.txt1,
+            transcription: values.txt2,
+            example: values.txt3,
+            translate: values.txt4,
+            string1: values.txt5,
+            string2: values.txt6,
+          },
+        ],
       })
       .then(({ data }) => {
-        addNewCard(data);
+        addNewCard(data.cards);
+        // console.log(data.cards);
       })
       .catch((err) => {
         alert("Error of saving");
@@ -100,12 +112,12 @@ export const CardCreater = ({
       <CardBox>
         <Formik
           initialValues={{
-            name: "",
-            transcription: "",
-            example: "",
-            translate: "",
-            string1: "",
-            string2: "",
+            txt1: "",
+            txt2: "",
+            txt3: "",
+            txt4: "",
+            txt5: "",
+            txt6: "",
           }}
           onSubmit={(values) => saveCard(values)}
         >
@@ -135,34 +147,34 @@ export const CardCreater = ({
               <Title>Front side</Title>
               <Termin
                 placeholder={"Word / Phrase"}
-                value={values.name}
-                onChangeText={handleChange("name")}
+                value={values.txt1}
+                onChangeText={handleChange("txt1")}
               />
               <Termin
                 placeholder={"Transcription / Explanation / Description"}
-                value={values.transcription}
-                onChangeText={handleChange("transcription")}
+                value={values.txt2}
+                onChangeText={handleChange("txt2")}
               />
               <Termin
                 placeholder={"Exemple / Sentence"}
-                value={values.example}
-                onChangeText={handleChange("example")}
+                value={values.txt3}
+                onChangeText={handleChange("txt3")}
               />
               <Title>Back side</Title>
               <Termin
                 placeholder={"Word / Phrase"}
-                value={values.translate}
-                onChangeText={handleChange("translate")}
+                value={values.txt4}
+                onChangeText={handleChange("txt4")}
               />
               <Termin
                 placeholder={"Transcription / Explanation / Description"}
-                value={values.string1}
-                onChangeText={handleChange("string1")}
+                value={values.txt5}
+                onChangeText={handleChange("txt5")}
               />
               <Termin
                 placeholder={"Exemple / Sentence"}
-                value={values.string2}
-                onChangeText={handleChange("string2")}
+                value={values.txt6}
+                onChangeText={handleChange("txt6")}
               />
               <Buttons>
                 <TouchableOpacity onPress={handleSubmit}>

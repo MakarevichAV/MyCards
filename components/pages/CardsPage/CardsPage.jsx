@@ -79,6 +79,7 @@ export const CardsPage = ({ navigation, route }) => {
   const [addingCard, setAddingCard] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
   const [addingCategory, setAddingCategory] = React.useState(false);
+  const [collectionData, setCollectionData] = React.useState({});
   // let pictureUrl;
   // client.photos.show({ id: 1194775 }).then((photo) => {
   //   pictureUrl = photo.src.small;
@@ -99,7 +100,8 @@ export const CardsPage = ({ navigation, route }) => {
     axios
       .get(urlCard + id)
       .then(({ data }) => {
-        setItems(data.cards);
+        setItems(data.cards.reverse());
+        setCollectionData(data);
       })
       .catch((err) => {
         alert("Error of sets getting");
@@ -112,7 +114,8 @@ export const CardsPage = ({ navigation, route }) => {
   React.useEffect(fetchCards, []);
 
   const addNewCard = (data) => {
-    setItems([...items, data]);
+    setItems(data.reverse());
+    // console.log(data);
   };
   const showSearchWindow = () => {
     setIsSearching(true);
@@ -174,6 +177,8 @@ export const CardsPage = ({ navigation, route }) => {
                   getPicture={getPicture}
                   showSearchWindow={showSearchWindow}
                   urlPhoto={urlPhoto}
+                  setId={id}
+                  collectionData={collectionData}
                 />
               )}
               {!addingCard && (

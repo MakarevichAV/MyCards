@@ -70,7 +70,7 @@ export const Card = ({ imgUri, name, transcription, example }) => {
     <CardBox>
       <Picture>
         <ImageBackground
-          source={{ uri: imgUri }}
+          source={imgUri ? { uri: imgUri } : require("../../../../assets/images/empty.png")}
           resizeMode="contain"
           style={styles.image}
         />
