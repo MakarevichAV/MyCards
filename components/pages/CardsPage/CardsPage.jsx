@@ -113,8 +113,8 @@ export const CardsPage = ({ navigation, route }) => {
 
   React.useEffect(fetchCards, []);
 
-  const addNewCard = (data) => {
-    setItems(data.reverse());
+  const addNewCard = (newData) => {
+    setItems(newData.reverse());
     // console.log(data);
   };
   const showSearchWindow = () => {

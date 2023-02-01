@@ -98,7 +98,7 @@ export const CardCreater = ({
       })
       .then(({ data }) => {
         addNewCard(data.cards);
-        // console.log(data.cards);
+        console.log(data.cards);
       })
       .catch((err) => {
         alert("Error of saving");
