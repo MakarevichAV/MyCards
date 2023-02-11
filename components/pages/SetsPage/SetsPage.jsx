@@ -71,6 +71,10 @@ export const SetsPage = ({ navigation, route }) => {
       });
   };
 
+  // const updateSet = () => {
+  //   fetchSets();
+  // };
+
   React.useEffect(fetchSets, []);
 
   const [addingSet, setEddingSet] = React.useState(false);
@@ -129,11 +133,12 @@ export const SetsPage = ({ navigation, route }) => {
           {items
             .map((obj) => (
               <TouchableOpacity
-                key={obj.id}
+                key={obj._id}
                 onPress={() =>
                   navigation.navigate("Cards", {
-                    id: obj.id,
+                    id: obj._id,
                     title: obj.title,
+                    // updateSet: updateSet
                   })
                 }
               >
@@ -141,7 +146,7 @@ export const SetsPage = ({ navigation, route }) => {
                   title={obj.title}
                   num={obj.num}
                   passed={obj.passed}
-                  setId={obj.id}
+                  setId={obj._id}
                   deleteSet={deleteSet}
                 />
               </TouchableOpacity>

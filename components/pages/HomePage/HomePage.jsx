@@ -67,7 +67,7 @@ export const HomePage = ({ navigation }) => {
         setItems(data);
       })
       .catch((err) => {
-        alert("Error of cards getting");
+        alert("Error of categories getting");
       })
       .finally(() => {
         setIsLoading(false);
@@ -197,17 +197,17 @@ export const HomePage = ({ navigation }) => {
               {items
                 .map((obj) => (
                   <TouchableOpacity
-                    key={obj.id}
+                    key={obj._id}
                     onPress={() =>
                       navigation.navigate("Sets", {
-                        id: obj.id,
+                        id: obj._id,
                         title: obj.title,
                         updateCat: updateCat,
                       })
                     }
                   >
                     <Kit
-                      catId={obj.id}
+                      catId={obj._id}
                       title={obj.title}
                       imageUrl={obj.imageUri}
                       deleteCategory={deleteCategory}

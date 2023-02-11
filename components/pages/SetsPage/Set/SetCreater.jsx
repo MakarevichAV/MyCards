@@ -17,8 +17,9 @@ export const SetCreater = ({
     axios
       .post(urlSet, {
         title: values.title,
+        cat_id: catId,
         num: 0,
-        cat_id: catId
+        passed: 0
       })
       .then(({ data }) => {
         addNewSet(data);

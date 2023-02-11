@@ -76,16 +76,17 @@ export const CardCreater = ({
   showSearchWindow,
   urlPhoto,
   setId,
+  updateSet,
   collectionData,
 }) => {
-  const [data, setData] = React.useState(collectionData);
+//   const [data, setData] = React.useState(collectionData);
 
   const saveCard = (values) => {
     axios
-      .put(urlCard + setId, {
-        cards: [
-          ...data.cards.reverse(),
-          {
+      .post(urlCard, {
+        // cards: [
+        //   ...data.cards.reverse(),
+        //   {
             imgUri: urlPhoto,
             name: values.txt1,
             transcription: values.txt2,
@@ -93,15 +94,17 @@ export const CardCreater = ({
             translate: values.txt4,
             string1: values.txt5,
             string2: values.txt6,
-          },
-        ],
+            set_id: setId
+        //   },
+        // ],
       })
       .then(({ data }) => {
-        addNewCard(data.cards);
-        console.log(data.cards);
+        // addNewCard(data);
+        // updateSet();
+        console.log(data);
       })
       .catch((err) => {
-        alert("Error of saving");
+        alert("Error of saving " + err);
       })
       .finally(() => {
         escFromAdding();
