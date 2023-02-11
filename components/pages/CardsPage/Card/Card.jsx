@@ -35,49 +35,63 @@ const CardBox = styled.View`
   border: 1px;
   border-color: #e8e8e8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 const Picture = styled.View`
   width: 100%;
-  height: 40%;
+  max-height: 40%;
+  flex-grow: 1;
   margin-bottom: 25px;
 `;
 const Termin = styled.Text`
-    text-align: center;
-    font-size: 20px;
-    font-weight: 900;
-    margin-bottom: 10px;
-    color: "rgb(58, 79, 88)";
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: "rgb(58, 79, 88)";
 `;
 const Transcription = styled.Text`
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: rgb(88, 98, 103);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: rgb(88, 98, 103);
 `;
 const Exemple = styled.Text`
-    text-align: center;
-    font-size: 16px;
-    font-weight: 900;
-    margin-bottom: 10px;
-    color: "rgb(58, 79, 88)";
+  text-align: center;
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: "rgb(58, 79, 88)";
 `;
-
+const ControlBox = styled.View`
+  width: 100%;
+  height: 60px;
+  border: 1px;
+`;
 
 export const Card = ({ imgUri, name, transcription, example }) => {
   return (
     <CardBox>
       <Picture>
         <ImageBackground
-          source={imgUri ? { uri: imgUri } : require("../../../../assets/images/empty.png")}
+          source={
+            imgUri
+              ? { uri: imgUri }
+              : require("../../../../assets/images/empty.png")
+          }
           resizeMode="contain"
           style={styles.image}
         />
       </Picture>
-      <Termin>{name}</Termin>
-      <Transcription>&#91;{transcription}&#93;</Transcription>
-      <Exemple>{example}</Exemple>
+      <>
+        <Termin>{name} max 40 simb</Termin> 
+        <Transcription>&#91;{transcription} max 40 simb&#93; </Transcription>
+        <Exemple>{example} max 50 simb</Exemple>
+      </>
+      <ControlBox />
     </CardBox>
   );
 };
