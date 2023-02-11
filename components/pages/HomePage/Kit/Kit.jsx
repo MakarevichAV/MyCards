@@ -76,7 +76,7 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
                     <SaveElement />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => deleteCategory(catId)}>
-                    <DeleteElement />
+                    <DeleteElement size={32}/>
                   </TouchableOpacity>
                 </Buttons>
               </KitInfo>
@@ -91,7 +91,7 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
             <KitTitle>{titleState}</KitTitle>
           </KitInfo>
           <TouchableOpacity onPress={editCategorie} style={styles.button}>
-            <EditElement />
+            <EditElement size={22}/>
           </TouchableOpacity>
         </>
       )}

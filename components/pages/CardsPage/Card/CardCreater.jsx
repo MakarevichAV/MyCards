@@ -97,13 +97,12 @@ export const CardCreater = ({
             set_id: setId
         //   },
         // ],
-      })
+      }, {headers:{"Content-Type" : "application/json"}})
       .then(({ data }) => {
-        // addNewCard(data);
-        // updateSet();
-        console.log(data);
+        addNewCard();
       })
       .catch((err) => {
+        // console.log(err.response);
         alert("Error of saving " + err);
       })
       .finally(() => {
@@ -184,7 +183,7 @@ export const CardCreater = ({
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={escFromAdding}>
-                  <DeleteElement />
+                  <DeleteElement size={32}/>
                 </TouchableOpacity>
               </Buttons>
             </>

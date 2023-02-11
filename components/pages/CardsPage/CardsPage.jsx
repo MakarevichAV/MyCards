@@ -117,9 +117,8 @@ export const CardsPage = ({ navigation, route }) => {
 
   React.useEffect(fetchCards, []);
 
-  const addNewCard = (newData) => {
-    setItems([...items, newData]);
-    console.log(data);
+  const addNewCard = () => {
+    fetchCards();
   };
   const showSearchWindow = () => {
     setIsSearching(true);
@@ -177,7 +176,7 @@ export const CardsPage = ({ navigation, route }) => {
               {addingCard && (
                 <CardCreater
                   escFromAdding={escFromAdding}
-                  addNewCat={addNewCard}
+                  addNewCard={addNewCard}
                   getPicture={getPicture}
                   showSearchWindow={showSearchWindow}
                   urlPhoto={urlPhoto}

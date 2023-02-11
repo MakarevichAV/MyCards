@@ -69,7 +69,7 @@ export const Set = ({ setId, title, num, passed, deleteSet }) => {
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => deleteSet(setId)}>
-                  <DeleteElement />
+                  <DeleteElement size={32}/>
                 </TouchableOpacity>
               </Buttons>
             </Info>
@@ -97,7 +97,7 @@ export const Set = ({ setId, title, num, passed, deleteSet }) => {
               </BtnTest>
             </BtnBlock>
             <TouchableOpacity onPress={editSet} style={styles.button}>
-              <EditElement />
+              <EditElement size={22}/>
             </TouchableOpacity>
           </Info>
           <Menu>

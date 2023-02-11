@@ -57,7 +57,7 @@ export const KitCreater = ({
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={escFromAdding}>
-                  <DeleteElement />
+                  <DeleteElement size={32}/>
                 </TouchableOpacity>
               </Buttons>
             </KitInfo>

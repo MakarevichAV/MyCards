@@ -51,7 +51,7 @@ export const SetCreater = ({
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={escFromAdding}>
-                  <DeleteElement />
+                  <DeleteElement size={32}/>
                 </TouchableOpacity>
               </Buttons>
             </Info>

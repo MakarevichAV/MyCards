@@ -10,6 +10,7 @@ import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 import React, { useState } from "react";
 import { Formik } from "formik";
 import styled from "styled-components";
+import { TurnElement } from "../../../comon/TurnElement/TurnElement";
 // import {  } from "./CardStyles.jsx";
 // import { urlSet } from "../../../../api/src";
 
@@ -30,7 +31,7 @@ const CardBox = styled.View`
   height: 400px;
   background-color: #ffffff;
   margin-bottom: 20px;
-  padding: 25px 15px;
+  padding: 25px 15px 10px 15px;
   border-radius: 8px;
   border: 1px;
   border-color: #e8e8e8;
@@ -69,7 +70,12 @@ const Exemple = styled.Text`
 const ControlBox = styled.View`
   width: 100%;
   height: 60px;
-  border: 1px;
+  /* border: 1px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
 `;
 
 export const Card = ({ imgUri, name, transcription, example }) => {
@@ -91,7 +97,19 @@ export const Card = ({ imgUri, name, transcription, example }) => {
         <Transcription>&#91;{transcription} max 40 simb&#93; </Transcription>
         <Exemple>{example} max 50 simb</Exemple>
       </>
-      <ControlBox />
+      <ControlBox>
+        <TouchableOpacity>
+          <EditElement size={35}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <TurnElement size={48}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <DeleteElement size={35}/>
+        </TouchableOpacity>
+      </ControlBox>
     </CardBox>
   );
 };
+
+
