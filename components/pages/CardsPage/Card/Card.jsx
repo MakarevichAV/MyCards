@@ -78,7 +78,27 @@ const ControlBox = styled.View`
   padding: 0 10px;
 `;
 
-export const Card = ({ imgUri, name, transcription, example }) => {
+export const Card = ({ cardId, imgUri, name, transcription, example }) => {
+  const [editingState, setEditingState] = React.useState(false);
+  const editCard = () => {
+    setEditingState(true);
+  }
+  const saveCard = (newValues) => {
+    axios
+      .put(
+        urlCard,
+        {_id: cardId, ...newValues}
+      )
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert("Error of card updating");
+      })
+      .finally(() => {
+        setEditingState(false);
+      });
+  };
   return (
     <CardBox>
       <Picture>

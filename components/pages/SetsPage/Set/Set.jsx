@@ -37,8 +37,8 @@ export const Set = ({ setId, title, num, passed, deleteSet }) => {
   const saveSet = (newValues) => {
     axios
       .put(
-        `${urlSet}/${setId}`,
-        newValues
+        urlSet,
+        {_id: setId, ...newValues}
       )
       .then(({ data }) => {
         setTitleState(data.title);

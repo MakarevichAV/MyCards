@@ -125,22 +125,10 @@ export const CardsPage = ({ navigation, route }) => {
   };
 
   const getPicture = (id) => {
-    // client.photos
-    //   .show({ id: id })
-    //   .then((photo) => {
-    //     setUrlPhoto(photo.src.small);
-    //   })
-    //   .catch((err) => {
-    //     alert("Error of getting photo");
-    //   })
-    //   .finally(() => {
-    //     setIsSearching(false);
-    //   });
     axios
       .get(urlPictureApi + `&id=${id}`)
       .then((data) => {
         setUrlPhoto(data.data.hits[0].previewURL);
-        // console.log(data.data.hits[0].userImageURL);
       })
       .catch((err) => {
         alert("Error of getting photo");
@@ -158,9 +146,7 @@ export const CardsPage = ({ navigation, route }) => {
   const [autoPlay, setAutoPlay] = React.useState(false);
   const [autoPlayReverse, setAutoPlayReverse] = React.useState(false);
 
-  //   const data = React.useRef([...new Array().keys()]).current;
   const data = React.useRef([...items.keys()]).current;
-  //   const viewCount = 5;
 
   if (isLoading) {
     return <LoadingElement />;

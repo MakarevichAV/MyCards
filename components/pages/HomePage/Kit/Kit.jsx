@@ -26,8 +26,8 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   const saveCategorie = (newValues) => {
     axios
       .put(
-        `${urlCat}/${catId}`,
-        newValues
+        urlCat,
+        {_id: catId, ...newValues}
       )
       .then(({ data }) => {
         setTitleState(data.title);

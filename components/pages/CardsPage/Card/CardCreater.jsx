@@ -79,14 +79,17 @@ export const CardCreater = ({
   updateSet,
   collectionData,
 }) => {
-//   const [data, setData] = React.useState(collectionData);
+  //   const [data, setData] = React.useState(collectionData);
 
   const saveCard = (values) => {
-    axios
-      .post(urlCard, {
-        // cards: [
-        //   ...data.cards.reverse(),
-        //   {
+    if (values.txt1) {
+      axios
+        .post(
+          urlCard,
+          {
+            // cards: [
+            //   ...data.cards.reverse(),
+            //   {
             imgUri: urlPhoto,
             name: values.txt1,
             transcription: values.txt2,
@@ -94,20 +97,25 @@ export const CardCreater = ({
             translate: values.txt4,
             string1: values.txt5,
             string2: values.txt6,
-            set_id: setId
-        //   },
-        // ],
-      }, {headers:{"Content-Type" : "application/json"}})
-      .then(({ data }) => {
-        addNewCard();
-      })
-      .catch((err) => {
-        // console.log(err.response);
-        alert("Error of saving " + err);
-      })
-      .finally(() => {
-        escFromAdding();
-      });
+            set_id: setId,
+            //   },
+            // ],
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then(({ data }) => {
+          addNewCard();
+        })
+        .catch((err) => {
+          // console.log(err.response);
+          alert("Error of saving " + err);
+        })
+        .finally(() => {
+          escFromAdding();
+        });
+    } else {
+      alert('Fill in required fields')
+    }
   };
   return (
     <Wrapper>
@@ -126,11 +134,6 @@ export const CardCreater = ({
           {({ handleChange, handleSubmit, values }) => (
             <>
               <TouchableOpacity onPress={() => showSearchWindow()}>
-                {/* <ImageBackground
-                  source={{ uri: "https://reactjs.org/logo-og.png" }}
-                  resizeMode="contain"
-                  style={styles.picture}
-                > */}
                 <Picture>
                   {!urlPhoto ? (
                     <AntDesign name="clouddownload" size={60} color="black" />
@@ -151,39 +154,46 @@ export const CardCreater = ({
                 placeholder={"Word / Phrase"}
                 value={values.txt1}
                 onChangeText={handleChange("txt1")}
+                style={{ borderColor: "#c23232" }}
+                maxLength={40}
               />
               <Termin
                 placeholder={"Transcription / Explanation / Description"}
                 value={values.txt2}
                 onChangeText={handleChange("txt2")}
+                maxLength={40}
               />
               <Termin
                 placeholder={"Exemple / Sentence"}
                 value={values.txt3}
                 onChangeText={handleChange("txt3")}
+                maxLength={50}
               />
               <Title>Back side</Title>
               <Termin
-                placeholder={"Word / Phrase"}
+                placeholder={"Word / Phrase / Translate"}
                 value={values.txt4}
                 onChangeText={handleChange("txt4")}
+                maxLength={40}
               />
               <Termin
                 placeholder={"Transcription / Explanation / Description"}
                 value={values.txt5}
                 onChangeText={handleChange("txt5")}
+                maxLength={40}
               />
               <Termin
                 placeholder={"Exemple / Sentence"}
                 value={values.txt6}
                 onChangeText={handleChange("txt6")}
+                maxLength={50}
               />
               <Buttons>
                 <TouchableOpacity onPress={handleSubmit}>
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={escFromAdding}>
-                  <DeleteElement size={32}/>
+                  <DeleteElement size={32} />
                 </TouchableOpacity>
               </Buttons>
             </>
