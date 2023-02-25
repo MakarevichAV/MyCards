@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
 const CardBox = styled.View`
   width: 100%;
   height: 400px;
-  background-color: #ffffff;
   margin-bottom: 20px;
   padding: 25px 15px 10px 15px;
   border-radius: 8px;
@@ -88,26 +87,42 @@ const ControlBox = styled.View`
 
 export const Card = (state) => {
   const [rotation] = useState(new Animated.Value(0));
-  // const rotation = useRef(new Animated.Value(80)).current;
-
+  const [isFlipped, setIsFlipped] = useState(false);
   const flipCard = () => {
-    console.log(num);
-    Animated.timing(rotation, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
+    // Animated.sequence([
+    //   Animated.timing(rotation, {
+    //     toValue: 1,
+    //     duration: 200,
+    //     useNativeDriver: true,
+    //   }),
+    //   Animated.timing(rotation, {
+    //     toValue: 0,
+    //     duration: 200,
+    //     useNativeDriver: true,
+    //   }),
+    // ])
+    // .start();
+      Animated.timing(rotation, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }).start(() => {
+        setIsFlipped(!isFlipped);
+        Animated.timing(rotation, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }).start()
+      })
+    
   };
 
   const num = rotation.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '180deg']
+    outputRange: ['0deg', '90deg']
   })
 
   const [editingState, setEditingState] = React.useState(false);
-  // const editCard = () => {
-  //   setEditingState(true);
-  // };
   const saveCard = (newValues) => {
     axios
       .put(urlCard, { _id: state.cardId, ...newValues })
@@ -122,13 +137,14 @@ export const Card = (state) => {
       });
   };
 
+  const cardCollor = !isFlipped ? '#ffffff' : '#c18a8a';
   return (
     <Animated.View
       style={{
         transform: [{ rotateY: num }],
       }}
     >
-      <CardBox>
+      <CardBox style={{backgroundColor: !isFlipped ? '#ffffff' : '#c18a8a' }}>
         <Picture>
           <ImageBackground
             source={
@@ -136,7 +152,6 @@ export const Card = (state) => {
                 ? { uri: state.imgUri }
                 : require("../../../../assets/images/empty.png")
             }
-            // source={require("../../../../assets/images/empty.png")}
             resizeMode="contain"
             style={styles.image}
           />
