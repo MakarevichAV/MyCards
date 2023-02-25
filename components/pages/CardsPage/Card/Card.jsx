@@ -1,16 +1,24 @@
 import axios from "axios";
 import { TouchableOpacity } from "react-native";
-import { Text, StyleSheet, View, Image, ImageBackground } from "react-native";
+import {
+  Animated,
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ImageBackground,
+} from "react-native";
 import { EditElement } from "../../../comon/EditElement/EditElement";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Formik } from "formik";
 import styled from "styled-components";
 import { TurnElement } from "../../../comon/TurnElement/TurnElement";
+import { CardCreater } from "./CardCreater";
 // import {  } from "./CardStyles.jsx";
 // import { urlSet } from "../../../../api/src";
 
@@ -78,17 +86,31 @@ const ControlBox = styled.View`
   padding: 0 10px;
 `;
 
-export const Card = ({ cardId, imgUri, name, transcription, example }) => {
+export const Card = (state) => {
+  const [rotation] = useState(new Animated.Value(0));
+  // const rotation = useRef(new Animated.Value(80)).current;
+
+  const flipCard = () => {
+    console.log(num);
+    Animated.timing(rotation, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const num = rotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg']
+  })
+
   const [editingState, setEditingState] = React.useState(false);
-  const editCard = () => {
-    setEditingState(true);
-  }
+  // const editCard = () => {
+  //   setEditingState(true);
+  // };
   const saveCard = (newValues) => {
     axios
-      .put(
-        urlCard,
-        {_id: cardId, ...newValues}
-      )
+      .put(urlCard, { _id: state.cardId, ...newValues })
       .then(({ data }) => {
         console.log(data);
       })
@@ -99,37 +121,43 @@ export const Card = ({ cardId, imgUri, name, transcription, example }) => {
         setEditingState(false);
       });
   };
+
   return (
-    <CardBox>
-      <Picture>
-        <ImageBackground
-          source={
-            imgUri
-              ? { uri: imgUri }
-              : require("../../../../assets/images/empty.png")
-          }
-          resizeMode="contain"
-          style={styles.image}
-        />
-      </Picture>
-      <>
-        <Termin>{name} max 40 simb</Termin> 
-        <Transcription>&#91;{transcription} max 40 simb&#93; </Transcription>
-        <Exemple>{example} max 50 simb</Exemple>
-      </>
-      <ControlBox>
-        <TouchableOpacity>
-          <EditElement size={35}/>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <TurnElement size={48}/>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <DeleteElement size={35}/>
-        </TouchableOpacity>
-      </ControlBox>
-    </CardBox>
+    <Animated.View
+      style={{
+        transform: [{ rotateY: num }],
+      }}
+    >
+      <CardBox>
+        <Picture>
+          <ImageBackground
+            source={
+              state.imgUri
+                ? { uri: state.imgUri }
+                : require("../../../../assets/images/empty.png")
+            }
+            // source={require("../../../../assets/images/empty.png")}
+            resizeMode="contain"
+            style={styles.image}
+          />
+        </Picture>
+        <>
+          <Termin>{state.name}</Termin>
+          <Transcription>&#91;{state.transcription}&#93; </Transcription>
+          <Exemple>{state.example}</Exemple>
+        </>
+        <ControlBox>
+          <TouchableOpacity onPress={() => state.editCard(state)}>
+            <EditElement size={35} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={flipCard}>
+            <TurnElement size={48} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <DeleteElement size={35} />
+          </TouchableOpacity>
+        </ControlBox>
+      </CardBox>
+    </Animated.View>
   );
 };
-
-

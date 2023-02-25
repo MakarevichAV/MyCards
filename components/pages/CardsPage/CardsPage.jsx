@@ -87,16 +87,17 @@ export const CardsPage = ({ navigation, route }) => {
 
   const updateSet = () => {
     fetchCards();
-  }
+  };
 
   const addCard = () => {
+    setUrlPhoto("");
+    setUpdateReq(false);
     setAddingCard(true);
     // setUrlPhoto(pictureUrl);
   };
   const escFromAdding = () => {
     setAddingCard(false);
     setUrlPhoto("");
-
   };
 
   const fetchCards = () => {
@@ -145,8 +146,37 @@ export const CardsPage = ({ navigation, route }) => {
   const [loop, setLoop] = React.useState(true);
   const [autoPlay, setAutoPlay] = React.useState(false);
   const [autoPlayReverse, setAutoPlayReverse] = React.useState(false);
+  const [updateReq, setUpdateReq] = React.useState(false);
+  const [cardId, setCardId] = React.useState("");
+  const [cardValues, setCardValues] = React.useState({
+    txt1: "",
+    txt2: "",
+    txt3: "",
+    txt4: "",
+    txt5: "",
+    txt6: "",
+  });
+
+  const editCard = (state) => {
+    setUpdateReq(true);
+    setCardId(state.cardId);
+    setCardValues({
+      txt1: state.name,
+      txt2: state.transcription,
+      txt3: state.example,
+      txt4: state.translate,
+      txt5: state.string1,
+      txt6: state.string2,
+      updateReq: updateReq,
+      cardId: cardId
+    });
+    setUrlPhoto(state.imgUri);
+    setAddingCard(true);
+  };
 
   const data = React.useRef([...items.keys()]).current;
+
+
 
   if (isLoading) {
     return <LoadingElement />;
@@ -168,7 +198,9 @@ export const CardsPage = ({ navigation, route }) => {
                   urlPhoto={urlPhoto}
                   setId={id}
                   updateSet={updateSet}
-                  // collectionData={collectionData}
+                  cardValues={cardValues}
+                  updateReq={updateReq}
+                  cardId={cardId}
                 />
               )}
               {!addingCard && (
@@ -187,33 +219,12 @@ export const CardsPage = ({ navigation, route }) => {
                   loop={loop}
                   autoPlay={autoPlay}
                   autoPlayReverse={autoPlayReverse}
-                  //   data={data}
                   data={items}
                   modeConfig={{
                     snapDirection,
                     stackInterval: mode === "vertical-stack" ? 8 : 18,
                   }}
-                  //   customConfig={() => ({ type: "positive", viewCount })}
                   renderItem={({ index }) => (
-                    // items
-                    //   .map((obj) => (
-                    //     <TouchableOpacity
-                    //       key={obj.id}
-                    //       onPress={() => console.log(obj.name)}
-                    //     >
-                    //       <Card name={obj.name}/>
-                    //       {/* <Text>{obj.name}</Text> */}
-                    //       {/* <Set
-                    //   title={obj.title}
-                    //   num={obj.num}
-                    //   passed={obj.passed}
-                    //   setId={obj.id}
-                    //   deleteSet={deleteSet}
-                    // /> */}
-                    //     </TouchableOpacity>
-                    //   ))
-                    //   .reverse()
-
                     <TouchableOpacity
                       activeOpacity={1}
                       key={index}
@@ -225,24 +236,12 @@ export const CardsPage = ({ navigation, route }) => {
                         transcription={items[index].transcription}
                         example={items[index].example}
                         translate={items[index].translate}
+                        string1={items[index].string1}
+                        string2={items[index].string2}
+                        editCard={editCard}
+                        cardId={items[index]._id}
                       />
-                      {/* <Text>{obj.name}</Text> */}
-                      {/* <Set
-                  title={obj.title}
-                  num={obj.num}
-                  passed={obj.passed}
-                  setId={obj.id}
-                  deleteSet={deleteSet}
-                /> */}
                     </TouchableOpacity>
-
-                    // <SBItem
-                    //   index={index}
-                    //   key={index}
-                    // //   entering={FadeInRight.delay(
-                    // //     (viewCount - index) * 100
-                    // //   ).duration(200)}
-                    // />
                   )}
                 />
               )}

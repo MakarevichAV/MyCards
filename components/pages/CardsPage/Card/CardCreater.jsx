@@ -78,12 +78,53 @@ export const CardCreater = ({
   setId,
   updateSet,
   collectionData,
+  cardValues,
+  updateReq,
+  cardId
 }) => {
-  //   const [data, setData] = React.useState(collectionData);
+  const [data, setData] = React.useState({
+    urlPhoto: urlPhoto, 
+    txt1: cardValues.txt1,
+    txt2: cardValues.txt2,
+    txt3: cardValues.txt3,
+    txt4: cardValues.txt4,
+    txt5: cardValues.txt5,
+    txt6: cardValues.txt6,
+    setId: setId,
+    cardId: cardValues.cardId
+  });
 
   const saveCard = (values) => {
     if (values.txt1) {
-      axios
+      if (updateReq) {
+        axios
+        .put(
+          urlCard,
+          {
+            _id: cardId,
+            imgUri: urlPhoto,
+            name: values.txt1,
+            transcription: values.txt2,
+            example: values.txt3,
+            translate: values.txt4,
+            string1: values.txt5,
+            string2: values.txt6,
+            set_id: setId,
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then(({ data }) => {
+          addNewCard();
+        })
+        .catch((err) => {
+          // console.log(err.response);
+          alert("Error of saving " + err);
+        })
+        .finally(() => {
+          escFromAdding();
+        });
+      } else {
+        axios
         .post(
           urlCard,
           {
@@ -113,8 +154,10 @@ export const CardCreater = ({
         .finally(() => {
           escFromAdding();
         });
+      }
+      
     } else {
-      alert('Fill in required fields')
+      alert("Fill in required fields");
     }
   };
   return (
@@ -122,12 +165,13 @@ export const CardCreater = ({
       <CardBox>
         <Formik
           initialValues={{
-            txt1: "",
-            txt2: "",
-            txt3: "",
-            txt4: "",
-            txt5: "",
-            txt6: "",
+            txt1: data.txt1,
+            txt2: data.txt2,
+            txt3: data.txt3,
+            txt4: data.txt4,
+            txt5: data.txt5,
+            txt6: data.txt6,
+            cardId: data.cardId
           }}
           onSubmit={(values) => saveCard(values)}
         >
