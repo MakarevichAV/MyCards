@@ -108,19 +108,19 @@ export const Card = (state) => {
   });
 
   const [editingState, setEditingState] = React.useState(false);
-  const saveCard = (newValues) => {
-    axios
-      .put(urlCard, { _id: state.cardId, ...newValues })
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        alert("Error of card updating");
-      })
-      .finally(() => {
-        setEditingState(false);
-      });
-  };
+  // const saveCard = (newValues) => {
+  //   axios
+  //     .put(urlCard, { _id: state.cardId, ...newValues })
+  //     .then(({ data }) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       alert("Error of card updating");
+  //     })
+  //     .finally(() => {
+  //       setEditingState(false);
+  //     });
+  // };
 
   const cardCollor = !isFlipped ? "#ffffff" : "#c18a8a";
   return (
