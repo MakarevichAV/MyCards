@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const DeleteBox = styled.View`
+export const EscBox = styled.View`
     top: 0;
     right: 0;
     display: flex;

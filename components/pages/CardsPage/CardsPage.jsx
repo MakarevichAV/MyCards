@@ -93,6 +93,14 @@ export const CardsPage = ({ navigation, route }) => {
     setUrlPhoto("");
     setUpdateReq(false);
     setAddingCard(true);
+    setCardValues({
+      txt1: "",
+      txt2: "",
+      txt3: "",
+      txt4: "",
+      txt5: "",
+      txt6: "",
+    });
     // setUrlPhoto(pictureUrl);
   };
   const escFromAdding = () => {
@@ -168,15 +176,13 @@ export const CardsPage = ({ navigation, route }) => {
       txt5: state.string1,
       txt6: state.string2,
       updateReq: updateReq,
-      cardId: cardId
+      cardId: cardId,
     });
     setUrlPhoto(state.imgUri);
     setAddingCard(true);
   };
 
   const data = React.useRef([...items.keys()]).current;
-
-
 
   if (isLoading) {
     return <LoadingElement />;
@@ -251,86 +257,9 @@ export const CardsPage = ({ navigation, route }) => {
                   flexWrap: "wrap",
                   justifyContent: "space-evenly",
                 }}
-              >
-                {/* <SButton
-                onPress={() => {
-                  setMode("horizontal-stack");
-                }}
-              >
-                {"horizontal-stack"}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setMode("vertical-stack");
-                }}
-              >
-                {"vertical-stack"}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setAutoPlay(!autoPlay);
-                }}
-              >
-                {`${ElementsText.AUTOPLAY}:${autoPlay}`}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setAutoPlayReverse(!autoPlayReverse);
-                }}
-              >
-                {`autoPlayReverse:${autoPlayReverse}`}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setLoop(!loop);
-                }}
-              >
-                {`loop:${loop}`}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setSnapDirection(snapDirection === "left" ? "right" : "left");
-                }}
-              >
-                {snapDirection}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setPagingEnabled(!pagingEnabled);
-                }}
-              >
-                {`pagingEnabled:${pagingEnabled}`}
-              </SButton>
-              <SButton
-                onPress={() => {
-                  setSnapEnabled(!snapEnabled);
-                }}
-              >
-                {`snapEnabled:${snapEnabled}`}
-              </SButton> */}
-              </View>
+              ></View>
             </View>
           )}
-          {
-            //   items
-            //     .map((obj) => (
-            //       <TouchableOpacity
-            //         key={obj.id}
-            //         onPress={() => console.log(obj.name)}
-            //       >
-            //         {/* <Card name={obj.name}/> */}
-            //         {/* <Text>{obj.name}</Text> */}
-            //         {/* <Set
-            //           title={obj.title}
-            //           num={obj.num}
-            //           passed={obj.passed}
-            //           setId={obj.id}
-            //           deleteSet={deleteSet}
-            //         /> */}
-            //       </TouchableOpacity>
-            //     ))
-            //     .reverse()
-          }
         </Wrapper>
       </ScrollView>
       <TouchableOpacity style={styles.button} onPress={addCard}>

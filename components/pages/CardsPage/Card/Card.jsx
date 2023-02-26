@@ -77,7 +77,6 @@ const Exemple = styled.Text`
 const ControlBox = styled.View`
   width: 100%;
   height: 60px;
-  /* border: 1px; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -89,38 +88,24 @@ export const Card = (state) => {
   const [rotation] = useState(new Animated.Value(0));
   const [isFlipped, setIsFlipped] = useState(false);
   const flipCard = () => {
-    // Animated.sequence([
-    //   Animated.timing(rotation, {
-    //     toValue: 1,
-    //     duration: 200,
-    //     useNativeDriver: true,
-    //   }),
-    //   Animated.timing(rotation, {
-    //     toValue: 0,
-    //     duration: 200,
-    //     useNativeDriver: true,
-    //   }),
-    // ])
-    // .start();
+    Animated.timing(rotation, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsFlipped(!isFlipped);
       Animated.timing(rotation, {
-        toValue: 1,
+        toValue: 0,
         duration: 200,
         useNativeDriver: true,
-      }).start(() => {
-        setIsFlipped(!isFlipped);
-        Animated.timing(rotation, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }).start()
-      })
-    
+      }).start();
+    });
   };
 
   const num = rotation.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '90deg']
-  })
+    outputRange: ["0deg", "90deg"],
+  });
 
   const [editingState, setEditingState] = React.useState(false);
   const saveCard = (newValues) => {
@@ -137,14 +122,14 @@ export const Card = (state) => {
       });
   };
 
-  const cardCollor = !isFlipped ? '#ffffff' : '#c18a8a';
+  const cardCollor = !isFlipped ? "#ffffff" : "#c18a8a";
   return (
     <Animated.View
       style={{
         transform: [{ rotateY: num }],
       }}
     >
-      <CardBox style={{backgroundColor: !isFlipped ? '#ffffff' : '#c18a8a' }}>
+      <CardBox style={{ backgroundColor: !isFlipped ? "#ffffff" : "#f3f4dd" }}>
         <Picture>
           <ImageBackground
             source={
@@ -156,11 +141,22 @@ export const Card = (state) => {
             style={styles.image}
           />
         </Picture>
-        <>
-          <Termin>{state.name}</Termin>
-          <Transcription>&#91;{state.transcription}&#93; </Transcription>
-          <Exemple>{state.example}</Exemple>
-        </>
+        {!isFlipped && (
+          <>
+            <Termin>{state.name}</Termin>
+            {state.transcription && (
+              <Transcription>&#91;{state.transcription}&#93; </Transcription>
+            )}
+            <Exemple>{state.example}</Exemple>
+          </>
+        )}
+        {isFlipped && (
+          <>
+            <Termin>{state.translate}</Termin>
+            {state.string1 && (<Termin>{state.string1}</Termin>)}
+            <Exemple>{state.string2}</Exemple>
+          </>
+        )}
         <ControlBox>
           <TouchableOpacity onPress={() => state.editCard(state)}>
             <EditElement size={35} />

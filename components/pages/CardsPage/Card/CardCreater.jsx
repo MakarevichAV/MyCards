@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { SaveElement } from "../../../comon/SaveElement/SaveElement";
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 import { urlCard } from "../../../../api/src";
+import { EscElement } from "../../../comon/EscElement/EscElement";
 
 const Wrapper = styled.View`
   width: 100%;
@@ -237,7 +238,7 @@ export const CardCreater = ({
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={escFromAdding}>
-                  <DeleteElement size={32} />
+                  <EscElement size={32}/>
                 </TouchableOpacity>
               </Buttons>
             </>
