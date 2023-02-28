@@ -192,7 +192,13 @@ export const CardsPage = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Wrapper>
-          {isSearching && <SearchWindow getPicture={getPicture} />}
+          {isSearching && (
+            <SearchWindow
+              getPicture={getPicture}
+              borderRadius={6}
+              resizeMode="contain"
+            />
+          )}
           {!isSearching && (
             <View style={{ flex: 1 }}>
               {addingCard && (

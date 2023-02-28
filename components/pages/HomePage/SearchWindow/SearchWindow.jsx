@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SearchWindow = ({ getPicture }) => {
+export const SearchWindow = ({ getPicture, borderRadius, resizeMode }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pictures, setPictures] = React.useState([]);
   const [query, setQuery] = React.useState("english");
@@ -149,16 +149,20 @@ export const SearchWindow = ({ getPicture }) => {
             </RequestString>
             <PicturesBlock>
               {isLoading && <LoadingElement />}
-              {!isLoading && (
+              {!isLoading &&
                 pictures.map((obj) => (
                   <Wrapper key={obj.id}>
                     <TouchableOpacity onPress={() => getPicture(obj.id)}>
-                      <Picture source={{ uri: obj.previewURL }} />
+                      <Picture
+                        source={{ uri: obj.previewURL }}
+                        style={{ borderRadius: borderRadius }}
+                        resizeMode={resizeMode}
+                      />
                     </TouchableOpacity>
                   </Wrapper>
                 ))
                 // <Text>{pictures}</Text>
-              )}
+              }
             </PicturesBlock>
           </>
         )}

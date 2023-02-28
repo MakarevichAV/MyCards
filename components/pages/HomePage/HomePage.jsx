@@ -82,7 +82,7 @@ export const HomePage = ({ navigation }) => {
   };
 
   React.useEffect(fetchKits, []);
-  
+
   const [addingCategory, setEddingCategory] = React.useState(false);
   const [urlPhoto, setUrlPhoto] = React.useState("");
   // let pictureUrl;
@@ -90,7 +90,7 @@ export const HomePage = ({ navigation }) => {
   // client.photos.show({ id: 1194775 }).then((photo) => {
   //   pictureUrl = photo.src.small;
   // });
-  
+
   const addCategory = () => {
     setEddingCategory(true);
     // setUrlPhoto(pictureUrl);
@@ -162,15 +162,11 @@ export const HomePage = ({ navigation }) => {
       ]
     );
     const deleteAllInsideSets = (catId) => {
-      axios
-        .get(`${urlSet}?cat_id=${catId}`)
-        .then(({ data }) => {
-          data.forEach((set) => {
-            axios.delete(
-              `${urlSet}/${set.id}`
-            );
-          });
+      axios.get(`${urlSet}?cat_id=${catId}`).then(({ data }) => {
+        data.forEach((set) => {
+          axios.delete(`${urlSet}/${set.id}`);
         });
+      });
     };
   };
 
@@ -182,7 +178,13 @@ export const HomePage = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Wrapper>
-          {isSearching && <SearchWindow getPicture={getPicture} />}
+          {isSearching && (
+            <SearchWindow
+              getPicture={getPicture}
+              borderRadius={100}
+              resizeMode="cover"
+            />
+          )}
           {!isSearching && (
             <>
               {addingCategory && (
