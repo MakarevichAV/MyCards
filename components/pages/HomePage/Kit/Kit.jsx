@@ -17,7 +17,7 @@ import {
 import { DeleteElement } from "../../../comon/DeleteElement/DeleteElement";
 import { urlCat, urlSet } from "../../../../api/src";
 
-export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
+export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory, showSearchWindow }) => {
   const [editingState, setEditingState] = React.useState(false);
   const [titleState, setTitleState] = React.useState(title);
   const editCategorie = () => {
@@ -25,10 +25,7 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   };
   const saveCategorie = (newValues) => {
     axios
-      .put(
-        urlCat,
-        {_id: catId, ...newValues}
-      )
+      .put(urlCat, { _id: catId, ...newValues })
       .then(({ data }) => {
         setTitleState(data.title);
       })
@@ -41,23 +38,23 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
   };
   const [num, setNum] = React.useState(setsNumber);
   const getNumSets = () => {
-    axios
-      .get(urlSet, { params: { cat_id: catId } })
-      .then(({data}) => {
-        setNum(data.length);
-      })
-  }
+    axios.get(urlSet, { params: { cat_id: catId } }).then(({ data }) => {
+      setNum(data.length);
+    });
+  };
   React.useEffect(getNumSets, []);
 
   return (
     <KitBlock>
-      <KitImage
-        source={
-          imageUrl == ""
-            ? require("../../../../assets/images/folder.png")
-            : { uri: imageUrl }
-        }
-      />
+      {/* <TouchableOpacity onPress={() => console.log('редактировать картинку')}>
+        <KitImage
+          source={
+            imageUrl == ""
+              ? require("../../../../assets/images/folder.png")
+              : { uri: imageUrl }
+          }
+        />
+      </TouchableOpacity> */}
       {editingState && (
         <Formik
           initialValues={{ title: titleState }}
@@ -65,6 +62,15 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
         >
           {({ handleChange, handleSubmit, values }) => (
             <>
+              {/* <TouchableOpacity onPress={() => showSearchWindow()}> */}
+                <KitImage
+                  source={
+                    imageUrl == ""
+                      ? require("../../../../assets/images/folder.png")
+                      : { uri: imageUrl }
+                  }
+                />
+              {/* </TouchableOpacity> */}
               <KitInfo>
                 <TitleInput
                   value={values.title}
@@ -76,7 +82,7 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
                     <SaveElement />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => deleteCategory(catId)}>
-                    <DeleteElement size={32}/>
+                    <DeleteElement size={32} />
                   </TouchableOpacity>
                 </Buttons>
               </KitInfo>
@@ -86,12 +92,20 @@ export const Kit = ({ catId, title, imageUrl, setsNumber, deleteCategory }) => {
       )}
       {!editingState && (
         <>
+          <KitImage
+            source={
+              imageUrl == ""
+                ? require("../../../../assets/images/folder.png")
+                : { uri: imageUrl }
+            }
+          />
+
           <KitInfo>
             <KitNum>{num} sets</KitNum>
             <KitTitle>{titleState}</KitTitle>
           </KitInfo>
           <TouchableOpacity onPress={editCategorie} style={styles.button}>
-            <EditElement size={22}/>
+            <EditElement size={22} />
           </TouchableOpacity>
         </>
       )}

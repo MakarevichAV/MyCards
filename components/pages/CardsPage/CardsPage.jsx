@@ -101,7 +101,6 @@ export const CardsPage = ({ navigation, route }) => {
       txt5: "",
       txt6: "",
     });
-    // setUrlPhoto(pictureUrl);
   };
   const escFromAdding = () => {
     setAddingCard(false);
@@ -128,9 +127,6 @@ export const CardsPage = ({ navigation, route }) => {
 
   const addNewCard = () => {
     fetchCards();
-  };
-  const showSearchWindow = () => {
-    setIsSearching(true);
   };
 
   const getPicture = (id) => {
@@ -183,6 +179,23 @@ export const CardsPage = ({ navigation, route }) => {
   };
 
   const data = React.useRef([...items.keys()]).current;
+
+  // const [formData, setFormData] = React.useState({
+
+  // });
+  const showSearchWindow = (state) => {
+    setCardValues({
+      txt1: state.txt1,
+      txt2: state.txt2,
+      txt3: state.txt3,
+      txt4: state.txt4,
+      txt5: state.txt5,
+      txt6: state.txt6,
+      // updateReq: false,
+      // cardId: '',
+    });
+    setIsSearching(true);
+  };
 
   if (isLoading) {
     return <LoadingElement />;

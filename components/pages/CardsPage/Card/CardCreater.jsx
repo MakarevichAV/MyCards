@@ -178,7 +178,7 @@ export const CardCreater = ({
         >
           {({ handleChange, handleSubmit, values }) => (
             <>
-              <TouchableOpacity onPress={() => showSearchWindow()}>
+              <TouchableOpacity onPress={() => showSearchWindow(values)}>
                 <Picture>
                   {!urlPhoto ? (
                     <AntDesign name="clouddownload" size={60} color="black" />

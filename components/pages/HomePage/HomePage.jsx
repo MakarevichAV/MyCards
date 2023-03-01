@@ -102,26 +102,18 @@ export const HomePage = ({ navigation }) => {
   const addNewCat = (data) => {
     setItems([...items, data]);
   };
-  const showSearchWindow = () => {
+
+  const [titleState, setTitleState] = React.useState("Name of catgory");
+  const showSearchWindow = (newVal) => {
     setIsSearching(true);
+    setTitleState(newVal);
   };
+  
   const getPicture = (id) => {
-    // client.photos
-    //   .show({ id: id })
-    //   .then((photo) => {
-    //     setUrlPhoto(photo.src.small);
-    //   })
-    //   .catch((err) => {
-    //     alert("Error of getting photo");
-    //   })
-    //   .finally(() => {
-    //     setIsSearching(false);
-    //   });
     axios
       .get(urlPictureApi + `&id=${id}`)
       .then((data) => {
         setUrlPhoto(data.data.hits[0].previewURL);
-        // console.log(data.data.hits[0].userImageURL);
       })
       .catch((err) => {
         alert("Error of getting photo");
@@ -194,6 +186,7 @@ export const HomePage = ({ navigation }) => {
                   showSearchWindow={showSearchWindow}
                   getPicture={getPicture}
                   urlPhoto={urlPhoto}
+                  titleState={titleState}
                 />
               )}
               {items
@@ -213,6 +206,8 @@ export const HomePage = ({ navigation }) => {
                       title={obj.title}
                       imageUrl={obj.imageUri}
                       deleteCategory={deleteCategory}
+                      showSearchWindow={showSearchWindow}
+                      getPicture={getPicture}
                     />
                   </TouchableOpacity>
                 ))

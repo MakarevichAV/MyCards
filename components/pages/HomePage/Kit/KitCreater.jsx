@@ -13,6 +13,7 @@ export const KitCreater = ({
   addNewCat,
   showSearchWindow,
   urlPhoto,
+  titleState
 }) => {
   const saveCategorie = (values) => {
     axios
@@ -34,14 +35,19 @@ export const KitCreater = ({
   return (
     <KitBlock>
       <Formik
-        initialValues={{ title: "Name of category" }}
+        initialValues={{ title: titleState }}
         onSubmit={(values) => saveCategorie(values)}
       >
         {({ handleChange, handleSubmit, values }) => (
           <>
-            <TouchableOpacity onPress={() => showSearchWindow()}>
+            <TouchableOpacity onPress={() => showSearchWindow(values.title)}>
               {!urlPhoto ? (
-                <AntDesign style={{paddingRight: 10}} name="clouddownload" size={55} color="black" />
+                <AntDesign
+                  style={{ paddingRight: 10 }}
+                  name="clouddownload"
+                  size={55}
+                  color="black"
+                />
               ) : (
                 <KitImage source={{ uri: urlPhoto }} />
               )}
@@ -57,7 +63,7 @@ export const KitCreater = ({
                   <SaveElement />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={escFromAdding}>
-                  <DeleteElement size={32}/>
+                  <DeleteElement size={32} />
                 </TouchableOpacity>
               </Buttons>
             </KitInfo>
