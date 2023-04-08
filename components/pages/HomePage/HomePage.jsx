@@ -67,6 +67,7 @@ export const HomePage = ({ navigation }) => {
         setItems(data);
       })
       .catch((err) => {
+        // console.log(err)
         alert("Error of categories getting");
       })
       .finally(() => {
