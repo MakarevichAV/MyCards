@@ -19,10 +19,6 @@ import { LoadingElement } from "../../comon/LoadingElement/LoadingElement";
 import { urlCat, urlSet } from "../../../api/src";
 import { urlPictureApi } from "../../../api/src";
 
-// const client = createClient(
-//   "TgiSsgKySa76KTi62EQlte8JPSPTDOQ3zw2xskbdK9wpLwUteHHMiZEF"
-// );
-
 const Wrapper = styled.View`
   padding: 15px;
   padding-bottom: 80px;
@@ -67,7 +63,6 @@ export const HomePage = ({ navigation }) => {
         setItems(data);
       })
       .catch((err) => {
-        // console.log(err)
         alert("Error of categories getting");
       })
       .finally(() => {
